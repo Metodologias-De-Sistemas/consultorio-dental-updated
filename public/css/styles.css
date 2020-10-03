@@ -1,0 +1,662 @@
+/* banner */
+
+.fab-banner {
+  color: Dodgerblue;
+  margin: 2%;
+}
+
+.sonrisaBannerImage {
+  max-height: auto;
+  width: 100%;
+}
+
+/* navbar */
+
+.navbar-brand {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+}
+
+.navbar {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.nav-item {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+/* inital carousel */
+
+.my-padding {
+  padding: 0 12%;
+}
+
+#initialCarousel {
+  /* padding-top: 48px; */
+}
+
+#carouselExampleSlidesOnly {
+  background-image: url('../images/initial carousel back image.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+}
+
+.carousel-item img {
+  max-height: auto;
+  width: 100%;
+}
+
+.carousel-item {
+}
+
+.background-text-carousel {
+  background-color: rgba(95, 148, 190, 0.774);
+  border-radius: 25px;
+  padding: 10px;
+}
+
+h1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+p {
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+.first-slide > .row > .col > h1 {
+  font-size: 2.25rem;
+}
+
+.second-slide > .row > .col > h1 {
+  font-size: 2.25rem;
+}
+
+.third-slide > .row > .col > h1 {
+  font-size: 2.25rem;
+}
+
+.carousel-p {
+  line-height: 2;
+}
+
+@media (max-width: 1160px) {
+  .first-slide > .row > .col > h1 {
+    font-size: 1rem;
+    margin-top: 15%;
+  }
+}
+
+/* services */
+
+.text-services ul {
+  padding-left: 25px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-top: 60px;
+  line-height: 2;
+}
+
+.text-services h1 {
+  font-size: 4.1rem;
+  font-weight: 400;
+  color: rgb(4, 112, 201);
+}
+
+.text-services p {
+  padding-top: 50px;
+  color: rgb(170, 67, 30);
+}
+
+#servicesSection {
+  background-image: url('../images/la\ clinica.png');
+  background-repeat: no-repeat;
+}
+
+.highlight {
+  background-color: rgba(95, 148, 190, 0.774);
+  padding-left: 9%;
+  padding-right: 1%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.rounded-right-background {
+  border-radius: 25px 0 0 25px;
+}
+
+.rounded-left-background {
+  border-radius: 0 25px 25px 0;
+}
+
+.padding-container-services {
+  padding: 85px 65px;
+}
+
+@media (max-width: 1298px) {
+  .text-services h1 {
+    font-size: 3.1rem;
+  }
+}
+
+@media (max-width: 1110px) {
+  .highlight {
+    padding-left: 9%;
+    padding-right: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+
+  .text-services p {
+    padding-top: 25px;
+  }
+
+  .text-services ul {
+    padding-left: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding-top: 40px;
+    line-height: 2;
+  }
+
+  .padding-container-services {
+    padding: 50px 50px;
+  }
+
+  .text-services h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 605px) {
+  .rounded-right-background {
+    border-radius: 25px 25px 0 0;
+  }
+
+  .rounded-left-background {
+    border-radius: 0 0 25px 25px;
+  }
+}
+
+/* About us section */
+
+#aboutUsSection {
+  background-image: url('../images/la\ clinica.png');
+  background-repeat: no-repeat;
+}
+
+.profile-image {
+  border-radius: 100%;
+  background-color: rgb(228, 159, 81);
+  border: 5px solid orangered;
+  width: 85%;
+  margin: auto;
+}
+
+.highlight-aboutUs {
+  background-color: rgba(95, 148, 190, 0.774);
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 3%;
+  padding-bottom: 10%;
+}
+
+.text-aboutUs ul {
+  padding-left: 25px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-top: 60px;
+  line-height: 2;
+}
+
+.text-aboutUs h1 {
+  font-size: 2.9rem;
+  font-weight: 400;
+  color: white;
+}
+
+.text-aboutUs p {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.padding-container-aboutUs {
+  padding: 85px 65px;
+}
+
+.card {
+  background-color: transparent;
+  border: none;
+}
+
+.card-body {
+  color: white;
+}
+
+.card-body h2 {
+  font-size: 2rem;
+}
+
+.hide-container-dra {
+  visibility: initial;
+}
+
+.show-container-dra-movile {
+  display: none;
+}
+
+.aboutUs-movile-dra {
+  background-image: url('../images/la\ clinica.png');
+  background-repeat: no-repeat;
+}
+
+.highlight-aboutUs-dra-movile {
+  background-color: rgba(95, 148, 190, 0.774);
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+@media (max-width: 1110px) {
+  .highlight-aboutUs {
+    padding-left: 9%;
+    padding-right: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+
+  .padding-container-aboutUs {
+    padding: 50px 50px;
+  }
+}
+
+@media (max-width: 605px) {
+  .rounded-right-background {
+    border-radius: 25px 25px 0 0;
+  }
+
+  .rounded-left-background {
+    border-radius: 0 0 25px 25px;
+  }
+
+  .text-aboutUs p {
+    font-size: 1rem;
+  }
+
+  .text-aboutUs h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .hide-container-dra {
+    display: none;
+  }
+
+  .show-container-dra-movile {
+    display: block;
+  }
+
+  .rounded-left-background-dra-movile {
+    border-radius: 25px;
+  }
+
+  .rounded-right-background-dra-movile {
+    border-radius: 25px;
+  }
+}
+
+/* covid Section */
+
+#covidSection {
+  background-image: url('../images/la\ clinica.png');
+  background-repeat: no-repeat;
+}
+.highlight-covid {
+  background-color: rgba(95, 148, 190, 0.774);
+  padding-left: 3%;
+  padding-right: 0%;
+  padding-top: 3%;
+  padding-bottom: 1%;
+}
+.text-covid h1 {
+  font-size: 2.9rem;
+  font-weight: 400;
+  color: rgb(4, 112, 201);
+}
+
+.text-covid h2 {
+  color: rgb(214, 107, 6);
+}
+
+.text-covid p {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.atte-text-covid p {
+  margin-bottom: 0px;
+  font-weight: 400;
+}
+
+.atte-text-covid {
+  margin-top: 300px;
+}
+
+.padding-container-covid {
+  padding: 85px 65px;
+}
+
+.gif-1 {
+  margin: 5px;
+  border-radius: 10%;
+  width: 350px;
+  height: 350px;
+}
+
+.gif-2 {
+  margin: 5px;
+  border-radius: 10%;
+  width: 250px;
+  height: 250px;
+  margin-left: 50px;
+}
+
+.gif-3 {
+  margin: 5px;
+  border-radius: 10%;
+  width: 250px;
+  height: 250px;
+  margin-left: 50px;
+}
+
+.gif-4 {
+  margin: 5px;
+  border-radius: 10%;
+  width: 350px;
+  height: 350px;
+  margin-left: 60px;
+}
+
+.col12-gif {
+  padding-top: 100px;
+  margin-bottom: 25px;
+}
+
+.highlight-covid-gif {
+  background-color: rgba(95, 148, 190, 0.774);
+}
+
+.rounded-right-background-covid {
+  border-radius: 25px 0 0 25px;
+}
+
+.rounded-left-background-covid {
+  border-radius: 0 25px 25px 0;
+}
+
+@media (max-width: 1641px) {
+  .gif-1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .gif-2 {
+    width: 225px;
+    height: 225px;
+    margin-left: 50px;
+  }
+
+  .gif-3 {
+    width: 225px;
+    height: 225px;
+    margin-left: 50px;
+  }
+
+  .gif-4 {
+    width: 300px;
+    height: 300px;
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 1475px) {
+  .gif-1 {
+    width: 250px;
+    height: 250px;
+  }
+
+  .gif-2 {
+    width: 185px;
+    height: 185px;
+    margin-left: 50px;
+  }
+
+  .gif-3 {
+    width: 185px;
+    height: 185px;
+    margin-left: 50px;
+  }
+
+  .gif-4 {
+    width: 250px;
+    height: 250px;
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 1295px) {
+  .gif-1 {
+    width: 215px;
+    height: 215px;
+  }
+
+  .gif-2 {
+    width: 185px;
+    height: 185px;
+    margin-left: 50px;
+  }
+
+  .gif-3 {
+    width: 185px;
+    height: 185px;
+    margin-left: 25px;
+  }
+
+  .gif-4 {
+    width: 215px;
+    height: 215px;
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 1122px) {
+  .gif-1 {
+    width: 175px;
+    height: 175px;
+  }
+
+  .gif-2 {
+    width: 125px;
+    height: 125px;
+    margin-left: 50px;
+  }
+
+  .gif-3 {
+    width: 125px;
+    height: 125px;
+    margin-left: 25px;
+  }
+
+  .gif-4 {
+    width: 175px;
+    height: 175px;
+    margin-left: 60px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .atte-text-covid {
+    margin-top: 50px;
+  }
+
+  .col12-gif {
+    padding-top: 25px;
+  }
+
+  .padding-container-covid {
+    padding: 45px 50px;
+  }
+
+  .rounded-right-background-covid {
+    border-radius: 25px 25px 0 0;
+  }
+
+  .rounded-left-background-covid {
+    border-radius: 0 0 25px 25px;
+  }
+}
+
+@media (max-width: 605px) {
+  .text-covid p {
+    font-size: 1rem;
+  }
+
+  .text-covid h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 738px) {
+  .gifs-column {
+    display: none;
+  }
+
+  .rounded-right-background-covid {
+    border-radius: 25px;
+  }
+}
+
+/* contact section */
+
+#contactSection {
+  background-image: url('../images/la\ clinica.png');
+}
+
+.padding-container-contact {
+  padding: 85px 65px;
+}
+
+.highlight-contact {
+  background-color: rgba(95, 148, 190, 0.774);
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 3%;
+  padding-bottom: 5%;
+  border-radius: 25px;
+}
+
+.highlight-contact-form {
+  background-color: rgba(36, 119, 187, 0.774);
+  padding-top: 1%;
+  padding-bottom: 5%;
+  margin-top: 5%;
+  padding-left: 2%;
+  border-radius: 25px;
+}
+
+.text-contact h1 {
+  font-size: 2.9rem;
+  font-weight: 400;
+  color: rgb(4, 112, 201);
+}
+
+.horarios h2 {
+  margin-bottom: 35px;
+}
+
+.horarios {
+  color: white;
+}
+
+hr {
+  border: 5px solid white;
+  border-radius: 15px;
+  width: 70%;
+}
+
+.text-contact p {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.form-area {
+  margin-top: 100px;
+  padding-right: 15px;
+}
+
+.contact-info p {
+  margin-bottom: 0px;
+  font-weight: 400;
+}
+
+.contact-info {
+  margin-top: 150px;
+  margin-left: 20px;
+}
+
+@media (max-width: 991px) {
+  .padding-container-contact {
+    padding: 10px 25px;
+  }
+
+  .text-contact h1 {
+    font-size: 2rem;
+  }
+
+  .horarios h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-area {
+    margin-top: 45px;
+  }
+
+  .highlight-contact-form {
+    margin-top: 2%;
+    padding-bottom: 1%;
+  }
+
+  .highlight-contact {
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+
+  .contact-info {
+    margin-top: 25px;
+  }
+}
+
+/* footer */
+
+.padding-container-footer {
+  padding: 20px 20px 10px;
+}
+
+.footer-info p {
+  margin-bottom: 0px;
+  font-weight: 400;
+}
+
+.footer-info h2 {
+  margin-bottom: 50px;
+}
+
+.footer-info {
+  margin-left: 50px;
+}
