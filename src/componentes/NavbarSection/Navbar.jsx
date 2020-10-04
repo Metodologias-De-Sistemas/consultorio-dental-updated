@@ -27,7 +27,9 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <NavbarList />
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <NavbarList />
+        </div>
       </nav>
     </>
   );
