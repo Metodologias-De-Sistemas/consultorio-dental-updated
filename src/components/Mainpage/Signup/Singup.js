@@ -75,7 +75,11 @@ const Signup = () => {
       isEmpty(nombreCompleto) ||
       isEmpty(email) ||
       isEmpty(password) ||
-      isEmpty(password2)
+      isEmpty(password2) ||
+      equals(stringFechaNacimiento, "Invalid date") ||
+      isEmpty(DNI) ||
+      isEmpty(numDeTelefono) ||
+      isEmpty(obraSocial)
     ) {
       setFormData({
         ...formData,
@@ -322,9 +326,9 @@ const Signup = () => {
           {errorMsg && showErrorMsg(errorMsg)}
           {showSignupForm()}
           {/* {JSON.stringify(formData)} */}
-          {/* {JSON.stringify(formData.fechaNacimiento)}
+          {JSON.stringify(formData.fechaNacimiento)}
           <br />
-          {stringFechaNacimiento} */}
+          {stringFechaNacimiento}
           {loading && showLoading()}
         </div>
       </div>
