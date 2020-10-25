@@ -1,11 +1,12 @@
-import React from 'react';
-import NavbarList from './NavbarList';
+import React from "react";
+import NavbarList from "./NavbarList";
+import { withRouter, Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <>
       <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           <img
             src="images/Logo sonrisa feliz.png"
             width="%100"
@@ -13,7 +14,7 @@ const Navbar = () => {
             alt=""
           />
           SONRISA FELIZ
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -35,4 +36,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

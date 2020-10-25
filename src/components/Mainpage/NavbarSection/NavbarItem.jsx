@@ -1,12 +1,13 @@
-import React from 'react';
+import React from "react";
+import { HashLink } from "react-router-hash-link";
 
 const NavbarItem = ({ href, text }) => {
   return (
     <>
       <li className="nav-item">
-        <a className="nav-link" href={href}>
+        <HashLink className="nav-link" to={href}>
           {text}
-        </a>
+        </HashLink>
       </li>
     </>
   );
