@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "../helpers/cookies";
 
 export const signup = async (data) => {
   const config = {
@@ -25,8 +26,10 @@ export const signin = async (data) => {
 };
 
 export const cita = async (data) => {
+  const token = getCookie("token");
   const config = {
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };

@@ -28,14 +28,9 @@ const Cita = () => {
   //   nombreCompleto: "Diego Montaña",
   //   fechaNacimiento: null,
   //   DNI: "41499363",
-  //   password: "abc123",
   //   numDeTelefono: "5493624324413",
   //   email: "diego@gmail.com",
   //   obraSocial: "OSDE",
-  //   password2: "abc123",
-  //   successMsg: false,
-  //   errorMsg: false,
-  //   loading: false,
   // });
 
   // // destructuramos el estado
@@ -274,7 +269,7 @@ const Cita = () => {
           name="horario"
         >
           <option value=""> Elija Horario de la cita</option>
-          <option value="8">MAÑANA | 08:00hs - 9:00hs </option>
+          <option value="8">MAÑANA | 08:00hs - 09:00hs </option>
           <option value="9">MAÑANA | 09:00hs - 10:00hs </option>
           <option value="10">MAÑANA | 10:00hs - 11:00hs </option>
           <option value="11">MAÑANA | 11:00hs - 12:00hs </option>
