@@ -1,39 +1,47 @@
-import axios from "axios";
-import { getCookie } from "../helpers/cookies";
+import axios from 'axios';
+import { getCookie } from '../helpers/cookies';
 
-export const signup = async (data) => {
+const baseUrl = 'http://localhost:3001/api';
+
+export const registrarUsuario = async (informacionRegistro) => {
+  const url = `${baseUrl}/pacientes/registro`;
+
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
-  const response = await axios.post("/api/auth/signup", data, config);
+  const { data } = await axios.post(url, informacionRegistro, config);
 
-  return response;
+  return data;
 };
 
-export const signin = async (data) => {
+export const logearUsuario = async (credenciales) => {
+  const url = `${baseUrl}/login`;
+
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
-  const response = await axios.post("/api/auth/signin", data, config);
+  const { data } = await axios.post(url, credenciales, config);
 
-  return response;
+  return data;
 };
 
-export const cita = async (data) => {
-  const token = getCookie("token");
+export const crearTurno = async (informacionTurno) => {
+  const token = getCookie('token');
+  const url = `${baseUrl}/turnos`;
+
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
-  const response = await axios.post("/api/cita", data, config);
+  const { data } = await axios.post(url, informacionTurno, config);
 
-  return response;
+  return data;
 };

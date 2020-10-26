@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import Moment from "moment";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import isEmpty from "validator/lib/isEmpty";
-import equals from "validator/lib/equals";
-import { showErrorMsg, showSuccessMsg } from "../../../helpers/message";
-import { showLoading } from "../../../helpers/loading";
-import { cita } from "../../../api/auth";
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import isEmpty from 'validator/lib/isEmpty';
+import equals from 'validator/lib/equals';
+import { showErrorMsg, showSuccessMsg } from '../../../helpers/message';
+import { showLoading } from '../../../helpers/loading';
+import { crearTurno } from '../../../api/auth';
 // import "./Signup.css";
-import { isAuthenticated } from "../../../helpers/auth";
+import { isAuthenticated } from '../../../helpers/auth';
 
 const Cita = () => {
   // let history = useHistory();
@@ -49,8 +49,8 @@ const Cita = () => {
 
   const [formData, setFormData] = useState({
     dpfecha: null,
-    observacion: "me duele la muela",
-    horario: "",
+    observacion: 'me duele la muela',
+    horario: '',
     successMsg: false,
     errorMsg: false,
     loading: false,
@@ -66,40 +66,39 @@ const Cita = () => {
     loading,
   } = formData;
 
-  //momentjs
-  let fecha = Moment(dpfecha).format("yyyy-MM-DD");
-
   // Event Handlers
   const handleChange = (evt) => {
     //console.log(evt);
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
-      successMsg: "",
-      errorMsg: "",
+      successMsg: '',
+      errorMsg: '',
     });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
+    const { fecha, observacion, horario } = formData;
+
+    const strDate = moment(fecha).format('YYYY-MM-DD');
     //Client side validation
     if (
-      equals(fecha, "Invalid date") ||
+      equals(strDate, 'Invalid date') ||
       isEmpty(observacion) ||
       isEmpty(horario)
     ) {
       setFormData({
         ...formData,
-        errorMsg: "Todos los campos son requeridos.",
+        errorMsg: 'Todos los campos son requeridos.',
       });
     } else {
       // preparacion de estados a mandar al backend
-      const { fecha, observacion, horario } = formData;
 
       // datos a manadar al backend
       const data = {
-        fecha,
+        fecha: strDate,
         observacion,
         horario,
       };
@@ -110,13 +109,13 @@ const Cita = () => {
       });
 
       // http method request from api/auth.js
-      cita(data)
+      crearTurno(data)
         .then((response) => {
-          console.log("Axios signup success: ", response);
+          console.log('Axios signup success: ', response);
           setFormData({
             fecha: null,
-            observacion: "",
-            horario: "",
+            observacion: '',
+            horario: '',
             loading: false,
             successMsg: response.data.successMessage, //successMessage es un mensaje que viene desde el backend
           });
@@ -128,7 +127,7 @@ const Cita = () => {
           }, 4000);
         })
         .catch((err) => {
-          console.log("Axios signup error: ", err);
+          console.log('Axios signup error: ', err);
           setFormData({
             ...formData,
             loading: false,
@@ -150,7 +149,7 @@ const Cita = () => {
         </div>
         <input
           name="nombreCompleto"
-          value={""}
+          value={''}
           className="form-control"
           placeholder="Nombre Completo"
           type="text"
@@ -167,7 +166,7 @@ const Cita = () => {
         </div>
         <input
           name="email"
-          value={""}
+          value={''}
           className="form-control"
           placeholder="Email"
           type="email"
@@ -203,7 +202,7 @@ const Cita = () => {
         </div>
         <input
           name="DNI"
-          value={""}
+          value={''}
           className="form-control"
           placeholder="D.N.I"
           type="text"
@@ -222,7 +221,7 @@ const Cita = () => {
         </div>
         <input
           name="numDeTelefono"
-          value={""}
+          value={''}
           className="form-control"
           placeholder="Numero de Telefono"
           type="text"
@@ -240,7 +239,7 @@ const Cita = () => {
         </div>
         <input
           name="obraSocial"
-          value={""}
+          value={''}
           className="form-control"
           placeholder="Obra Social"
           type="text"
@@ -312,7 +311,7 @@ const Cita = () => {
         </div>
         <textarea
           class="form-control"
-          style={{ resize: "none" }}
+          style={{ resize: 'none' }}
           rows="4"
           placeholder="Describa sus sintomas."
           value={observacion}

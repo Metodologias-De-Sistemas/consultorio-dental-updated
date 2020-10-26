@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import isEmail from "validator/lib/isEmail";
-import isEmpty from "validator/lib/isEmpty";
-import { showErrorMsg } from "../../../helpers/message";
-import { showLoading } from "../../../helpers/loading";
-import { signin } from "../../../api/auth";
-import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import isEmail from 'validator/lib/isEmail';
+import isEmpty from 'validator/lib/isEmpty';
+import { showErrorMsg } from '../../../helpers/message';
+import { showLoading } from '../../../helpers/loading';
+import { logearUsuario } from '../../../api/auth';
+import { isAuthenticated, setAuthentication } from '../../../helpers/auth';
 
 const Signin = () => {
   let history = useHistory();
 
-  useEffect(() => {
-    if (isAuthenticated() && isAuthenticated().role === 1) {
-      history.push("/admin/dashboard");
-    } else if (isAuthenticated() && isAuthenticated().role === 0) {
-      history.push("/user/cita");
-    }
-  }, [history]);
-
   // creamos el estado del componente
   const [formData, setFormData] = useState({
-    email: "diego@gmail.com",
-    password: "abc123",
+    email: 'diego@gmail.com',
+    password: 'abc123',
     errorMsg: false,
     loading: false,
   });
@@ -35,7 +27,7 @@ const Signin = () => {
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
-      errorMsg: "",
+      errorMsg: '',
     });
   };
 
@@ -46,12 +38,12 @@ const Signin = () => {
     if (isEmpty(email) || isEmpty(password)) {
       setFormData({
         ...formData,
-        errorMsg: "Todos los campos son requeridos.",
+        errorMsg: 'Todos los campos son requeridos.',
       });
     } else if (!isEmail(email)) {
       setFormData({
         ...formData,
-        errorMsg: "Email invalido.",
+        errorMsg: 'Email invalido.',
       });
     } else {
       const { email, password } = formData;
@@ -63,26 +55,28 @@ const Signin = () => {
       });
 
       // http method request from api/auth.js
-      signin(data)
+      logearUsuario(data)
         .then((response) => {
-          setAuthentication(response.data.token, response.data.user);
-
+          setAuthentication(response.token, {
+            ...response.paciente,
+            email: response.email,
+          });
           // si esta autenticado y es admin, se redirige al admin dashboard
-          if (isAuthenticated() && isAuthenticated().role === 1) {
-            console.log("Redirecting to admin dashboard");
-            history.push("/admin/dashboard");
+          if (isAuthenticated() && isAuthenticated().rol === 1) {
+            console.log('Redirecting to admin dashboard');
+            history.push('/admin/dashboard');
           } else {
-            console.log("Redirecting to user dashboard/home/askDate"); // redirigimos al pedido de cita
-            history.push("/user/cita");
+            console.log('Redirecting to user dashboard/home/askDate'); // redirigimos al pedido de cita
+            history.push('/user/cita');
           }
         })
         .catch((err) => {
-          console.log("signin api function error", err);
+          console.log('signin api function error', err);
 
           setFormData({
             ...formData,
             loading: false,
-            errorMsg: err.response.data.errorMessage,
+            errorMsg: err.msg,
           });
         });
     }
