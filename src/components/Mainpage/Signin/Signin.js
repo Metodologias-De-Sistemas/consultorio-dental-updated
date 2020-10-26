@@ -12,8 +12,8 @@ const Signin = () => {
 
   // creamos el estado del componente
   const [formData, setFormData] = useState({
-    email: 'diego@gmail.com',
-    password: 'abc123',
+    email: '',
+    password: '',
     errorMsg: false,
     loading: false,
   });

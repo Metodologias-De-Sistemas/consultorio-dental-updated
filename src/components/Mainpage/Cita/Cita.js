@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -9,44 +8,8 @@ import { showErrorMsg, showSuccessMsg } from '../../../helpers/message';
 import { showLoading } from '../../../helpers/loading';
 import { crearTurno } from '../../../api/auth';
 // import "./Signup.css";
-import { isAuthenticated } from '../../../helpers/auth';
 
 const Cita = () => {
-  // let history = useHistory();
-
-  // useEffect(() => {
-  //   if (isAuthenticated() && isAuthenticated().role === 1) {
-  //     history.push("/admin/dashboard");
-  //   } else if (isAuthenticated() && isAuthenticated().role === 0) {
-  //     history.push("/user/cita");
-  //   }
-  // }, [history]);
-
-  // creamos el estado del componente
-  // const [formData, setFormData] = useState({
-  //   nombreCompleto: "Diego Montaña",
-  //   fechaNacimiento: null,
-  //   DNI: "41499363",
-  //   numDeTelefono: "5493624324413",
-  //   email: "diego@gmail.com",
-  //   obraSocial: "OSDE",
-  // });
-
-  // // destructuramos el estado
-  // const {
-  //   nombreCompleto,
-  //   fechaNacimiento,
-  //   DNI,
-  //   password,
-  //   numDeTelefono,
-  //   email,
-  //   obraSocial,
-  //   password2,
-  //   successMsg,
-  //   errorMsg,
-  //   loading,
-  // } = formData;
-
   const [formData, setFormData] = useState({
     dpfecha: null,
     observacion: 'me duele la muela',

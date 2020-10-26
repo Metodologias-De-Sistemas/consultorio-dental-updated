@@ -45,3 +45,52 @@ export const crearTurno = async (informacionTurno) => {
 
   return data;
 };
+
+export const getTurnos = async () => {
+  const token = getCookie('token');
+  const url = `${baseUrl}/turnos`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const { data } = await axios.get(url, config);
+  console.log(data);
+
+  return data;
+};
+
+export const borrarTurno = async (id) => {
+  const token = getCookie('token');
+  const url = `${baseUrl}/turnos/${id}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const { data } = await axios.delete(url, config);
+
+  return data;
+};
+
+export const editarTurno = async (id, obj) => {
+  const token = getCookie('token');
+  const url = `${baseUrl}/turnos/${id}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const { data } = await axios.patch(url, obj, config);
+
+  return data;
+};

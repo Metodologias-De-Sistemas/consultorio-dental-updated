@@ -25,14 +25,14 @@ const Signup = () => {
 
   // creamos el estado del componente
   const [formData, setFormData] = useState({
-    nombreCompleto: 'Diego Montaña',
+    nombreCompleto: '',
     fechaNacimiento: null,
-    DNI: '41499363',
-    password: 'abc123',
-    numDeTelefono: '5493624324413',
-    email: 'diego@gmail.com',
-    obraSocial: 'OSDE',
-    password2: 'abc123',
+    DNI: '',
+    password: '',
+    numDeTelefono: '',
+    email: '',
+    obraSocial: '',
+    password2: '',
     successMsg: false,
     errorMsg: false,
     loading: false,
