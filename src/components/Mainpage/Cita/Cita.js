@@ -54,8 +54,7 @@ const Cita = () => {
   // } = formData;
 
   const [formData, setFormData] = useState({
-    prestacion: "RELEVAMIENTO BUCAL",
-    fecha: null,
+    dpfecha: null,
     observacion: "me duele la muela",
     horario: "",
     successMsg: false,
@@ -65,7 +64,6 @@ const Cita = () => {
 
   // destructuramos el estado
   const {
-    prestacion,
     dpfecha,
     observacion,
     horario,
@@ -93,49 +91,23 @@ const Cita = () => {
 
     //Client side validation
     if (
-      isEmpty(nombreCompleto) ||
-      isEmpty(email) ||
-      isEmpty(password) ||
-      isEmpty(password2) ||
-      equals(stringFechaNacimiento, "Invalid date") ||
-      isEmpty(DNI) ||
-      isEmpty(numDeTelefono) ||
-      isEmpty(obraSocial)
+      equals(fecha, "Invalid date") ||
+      isEmpty(observacion) ||
+      isEmpty(horario)
     ) {
       setFormData({
         ...formData,
         errorMsg: "Todos los campos son requeridos.",
       });
-    } else if (!isEmail(email)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Email invalido.",
-      });
-    } else if (!equals(password, password2)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Las contraseñas no coinciden.",
-      });
     } else {
       // preparacion de estados a mandar al backend
-      const {
-        nombreCompleto,
-        DNI,
-        password,
-        numDeTelefono,
-        email,
-        obraSocial,
-      } = formData;
+      const { fecha, observacion, horario } = formData;
 
       // datos a manadar al backend
       const data = {
-        nombreCompleto,
-        stringFechaNacimiento,
-        DNI,
-        password,
-        numDeTelefono,
-        email,
-        obraSocial,
+        fecha,
+        observacion,
+        horario,
       };
 
       setFormData({
@@ -148,14 +120,9 @@ const Cita = () => {
         .then((response) => {
           console.log("Axios signup success: ", response);
           setFormData({
-            nombreCompleto: "",
-            fechaNacimiento: "",
-            DNI: "",
-            password: "",
-            numDeTelefono: "",
-            email: "",
-            obraSocial: "",
-            password2: "",
+            fecha: null,
+            observacion: "",
+            horario: "",
             loading: false,
             successMsg: response.data.successMessage, //successMessage es un mensaje que viene desde el backend
           });
@@ -189,7 +156,7 @@ const Cita = () => {
         </div>
         <input
           name="nombreCompleto"
-          value={nombreCompleto}
+          value={""}
           className="form-control"
           placeholder="Nombre Completo"
           type="text"
@@ -206,7 +173,7 @@ const Cita = () => {
         </div>
         <input
           name="email"
-          value={email}
+          value={""}
           className="form-control"
           placeholder="Email"
           type="email"
@@ -224,7 +191,7 @@ const Cita = () => {
         </div>
         <input
           name="Fecha de Nacimiento"
-          value={fechaNacimiento}
+          value={null}
           className="form-control"
           placeholder="Fecha de Nacimiento"
           type="text"
@@ -242,7 +209,7 @@ const Cita = () => {
         </div>
         <input
           name="DNI"
-          value={DNI}
+          value={""}
           className="form-control"
           placeholder="D.N.I"
           type="text"
@@ -261,7 +228,7 @@ const Cita = () => {
         </div>
         <input
           name="numDeTelefono"
-          value={numDeTelefono}
+          value={""}
           className="form-control"
           placeholder="Numero de Telefono"
           type="text"
@@ -279,7 +246,7 @@ const Cita = () => {
         </div>
         <input
           name="obraSocial"
-          value={obraSocial}
+          value={""}
           className="form-control"
           placeholder="Obra Social"
           type="text"
@@ -288,8 +255,10 @@ const Cita = () => {
           disabled="true"
         />
       </div>
+
       <br />
       <h3 className="text-center">Completar los Datos.</h3>
+
       {/* horario*/}
       <div className="form-group input-group">
         <div className="input-group-prepend ">
@@ -300,16 +269,22 @@ const Cita = () => {
         <select
           class="custom-select "
           id="inlineFormCustomSelect"
-          value=""
+          value={horario}
           onChange={handleChange}
+          name="horario"
         >
-          <option>Elija Horario de la cita</option>
-          <option value="MAÑANA">MAÑANA</option>
-          <option value="TARDE">TARDE</option>
+          <option value=""> Elija Horario de la cita</option>
+          <option value="8">MAÑANA | 08:00hs - 9:00hs </option>
+          <option value="9">MAÑANA | 09:00hs - 10:00hs </option>
+          <option value="10">MAÑANA | 10:00hs - 11:00hs </option>
+          <option value="11">MAÑANA | 11:00hs - 12:00hs </option>
+          <option value="16">TARDE᲼᲼᲼ | 16:00hs - 17:00hs </option>
+          <option value="17">TARDE᲼᲼᲼ | 17:00hs - 18:00hs </option>
+          <option value="18">TARDE᲼᲼᲼ | 18:00hs - 19:00hs </option>
         </select>
       </div>
 
-      {/* Date Picker fecha de nac */}
+      {/* Date Picker fecha cita*/}
       <div className="form-group input-group">
         <div className="input-group-prepend ">
           <span className="input-group-text">
@@ -318,11 +293,11 @@ const Cita = () => {
         </div>
         <DatePicker
           placeholderText="Elija Fecha de la cita."
-          selected={fechaNacimiento}
+          selected={dpfecha}
           onChange={(date) =>
             setFormData({
               ...formData,
-              fechaNacimiento: date,
+              dpfecha: date,
             })
           }
           dateFormat="dd/MM/yyyy"
@@ -330,6 +305,7 @@ const Cita = () => {
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
+          filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
         />
       </div>
 
@@ -345,6 +321,9 @@ const Cita = () => {
           style={{ resize: "none" }}
           rows="4"
           placeholder="Describa sus sintomas."
+          value={observacion}
+          name="observacion"
+          onChange={handleChange}
         ></textarea>
       </div>
 
@@ -371,10 +350,9 @@ const Cita = () => {
           {successMsg && showSuccessMsg(successMsg)}
           {errorMsg && showErrorMsg(errorMsg)}
           {showSignupForm()}
-          {/* {JSON.stringify(formData)} */}
-          {JSON.stringify(formData.fechaNacimiento)}
-          <br />
-          {stringFechaNacimiento}
+          {JSON.stringify(formData.dpfecha)}
+          {<br />}
+          {<h1>{horario}</h1>}
           {loading && showLoading()}
         </div>
       </div>
