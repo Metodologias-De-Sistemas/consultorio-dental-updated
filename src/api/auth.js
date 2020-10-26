@@ -23,3 +23,14 @@ export const signin = async (data) => {
 
   return response;
 };
+
+export const cita = async (data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await axios.post("/api/cita", data, config);
+
+  return response;
+};

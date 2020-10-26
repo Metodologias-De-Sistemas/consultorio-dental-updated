@@ -279,7 +279,6 @@ const Signup = () => {
           placeholder="Numero de Telefono"
           type="text"
           onChange={handleChange}
-          maxLength="8"
         />
       </div>
 
@@ -297,7 +296,6 @@ const Signup = () => {
           placeholder="Obra Social"
           type="text"
           onChange={handleChange}
-          maxLength="8"
         />
       </div>
 

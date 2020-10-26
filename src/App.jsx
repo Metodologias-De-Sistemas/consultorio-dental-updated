@@ -21,7 +21,9 @@ const App = () => {
             <Route exact path="/" component={Mainpage} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
-            <UserRoute exact path="/user/cita" component={Cita} />
+            {/* <UserRoute exact path="/user/cita" component={Cita} /> */}
+            {/* Descomentar LInea de arriba para probar routeo con backend */}
+            <Route exact path="/user/cita" component={Cita} />
             <AdminRoute
               exact
               path="/admin/dashboard"
