@@ -12,7 +12,8 @@ export const setAuthentication = (token, user) => {
 
 export const isAuthenticated = () => {
   if (getCookie("token") && getLocalStorage("user")) {
-    return getLocalStorage("user");
+    // deberia ser "email" ya que este es unico
+    return getLocalStorage("user"); // debiera devolver el nombreCompleto y despues todo lo demas
   } else {
     return false;
   }
