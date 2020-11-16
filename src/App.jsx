@@ -8,7 +8,6 @@ import Cita from "./components/Mainpage/Cita/Cita";
 import AdminDashboard from "./components/Mainpage/AdminDashboard/AdminDashboard";
 import AdminRoute from "./components/Mainpage/AdminRoute/AdminRoute";
 import UserRoute from "./components/Mainpage/UserRoute/UserRoute";
-//import Banner from "./components/Mainpage/BannerSection/Banner";
 import Navbar from "./components/Mainpage/NavbarSection/Navbar";
 
 const App = () => {

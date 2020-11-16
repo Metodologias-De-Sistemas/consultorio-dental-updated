@@ -94,3 +94,15 @@ export const editarTurno = async (id, obj) => {
 
   return data;
 };
+
+export const terminarTurno = async (id, text) => {
+  const token = getCookie('token');
+  const url = `${baseUrl}/consultas`
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  }
+}

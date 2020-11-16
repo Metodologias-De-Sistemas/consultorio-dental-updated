@@ -1,12 +1,13 @@
 import React from 'react';
 
-const ServicesList = ({ servicesArray }) => {
+const ServicesList = ({servicesArray}) => {
   return (
     <ul>
-      {servicesArray.map((services) => (
-        <li>{services}</li>
-      ))}
+      {servicesArray.map(function (servicio) {
+        return <li> {servicio} </li>;
+      })}
     </ul>
+    // map, filter, find, forEach
   );
 };
 

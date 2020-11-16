@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import { getTurnos, borrarTurno, editarTurno } from '../../../api/auth';
+import { getTurnos, borrarTurno, editarTurno, terminarTurno } from '../../../api/auth';
 import TableButton from './TableButton';
 
 const AdminDashboard = () => {
@@ -10,10 +10,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     getTurnos()
       .then((response) => {
-        const turnoPendientes = response.data.filter(
-          (turno) => turno.estado === 'PENDIENTE',
-        );
-        setTurnos(turnoPendientes);
+        setTurnos(response.data);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -26,6 +23,10 @@ const AdminDashboard = () => {
     setTurnos(nuevosTurnos);
   };
 
+  const handleTerminarTurno = async (id) => {
+    await terminarTurno(id, 'Esto es una prueba');
+  }
+
   const handleAceptarTurno = async (id) => {
     const data = {
       estado: 'ACEPTADO',
@@ -34,7 +35,7 @@ const AdminDashboard = () => {
 
     await editarTurno(id, data);
 
-    const nuevosTurnos = turnos.filter((turno) => turno.id !== id);
+    const nuevosTurnos = await getTurnos();
     setTurnos(nuevosTurnos);
   };
 
@@ -77,6 +78,10 @@ const AdminDashboard = () => {
         grow: 1.5,
       },
       {
+        name: 'Estado de la Cita',
+        selector: 'estado'
+      },
+      {
         cell: (row) => (
           <TableButton
             className="btn btn-success btn-sm"
@@ -106,7 +111,7 @@ const AdminDashboard = () => {
               setSelect(target.value);
             }}
           >
-            <option value=""> Elija Horario de la cita</option>
+            <option value=""> Elija Prestacion </option>
             <option value="RELEVAMIENTO BUCAL">RELEVAMIENTO BUCAL</option>
             <option value="RESTAURACION DE PIEZAS DENTALES">
               RESTAURACION DE PIEZAS DENTALES{' '}
@@ -135,13 +140,59 @@ const AdminDashboard = () => {
       },
     ];
 
+    const columnasAceptados = [
+      {
+        name: 'Nombre',
+        selector: 'paciente.nombreCompleto'
+      },
+      {
+        name: 'DNI',
+        selector: 'paciente.DNI'
+      },
+      {
+        name: 'Obra Social',
+        selector: 'paciente.obraSocial'
+      },
+      {
+        name: 'Fecha',
+        selector: 'fecha',
+        sorteable: true,
+      },
+      {
+        name: 'Horario',
+        selector: 'horario',
+        sorteable: true,
+      },
+      {
+        name: 'Observacion',
+        cell: (row) => (
+          <textarea />
+        )
+      },
+      {
+        cell: (row) => (
+          <TableButton
+            className="btn btn-success btn-sm"
+            text="Terminar Turno"
+            handleClick={() => console.log(row.id)}
+            id={row.id}
+            />
+        )
+      }
+    ]
+
     return (
       <div className="table-responsive">
         <DataTable
           columns={columnas}
-          data={turnos}
-          title="Ver Turnos Pendientes"
+          data={turnos.filter((turno) => turno.estado === 'PENDIENTE')}
+          title="Turnos Pendientes"
         />
+        <DataTable
+          data={turnos.filter((turno) => turno.estado === 'ACEPTADO')}
+          columns={columnasAceptados}
+          title="Turnos Aceptados"
+          />
       </div>
     );
   };
