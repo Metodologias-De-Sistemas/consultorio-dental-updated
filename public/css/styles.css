@@ -1,4 +1,3 @@
-
 html {
   scroll-behavior: smooth;
 }
@@ -18,7 +17,7 @@ html {
 /* navbar */
 
 .navbar-brand {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: "Titillium Web", sans-serif;
   font-weight: 900;
   font-size: 2rem;
 }
@@ -29,7 +28,7 @@ html {
 }
 
 .nav-item {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: "Titillium Web", sans-serif;
   font-weight: 900;
   font-size: 1.2rem;
 }
@@ -45,7 +44,7 @@ html {
 }
 
 #carouselExampleSlidesOnly {
-  background-image: url('../images/initial carousel back image.jpg');
+  background-image: url("../images/initial carousel back image.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 100%;
@@ -66,12 +65,12 @@ html {
 }
 
 h1 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
 }
 
 p {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
 }
 
@@ -120,8 +119,11 @@ p {
 }
 
 #servicesSection {
-  background-image: url('../images/la\ clinica.png');
-  background-repeat: no-repeat;
+  background-image: url("../images/la\ clinica.png");
+}
+
+#moreInfoSection {
+  background-image: url("../images/la\ clinica.png");
 }
 
 .highlight {
@@ -192,7 +194,7 @@ p {
 /* About us section */
 
 #aboutUsSection {
-  background-image: url('../images/la\ clinica.png');
+  background-image: url("../images/la\ clinica.png");
   background-repeat: no-repeat;
 }
 
@@ -257,7 +259,7 @@ p {
 }
 
 .aboutUs-movile-dra {
-  background-image: url('../images/la\ clinica.png');
+  background-image: url("../images/la\ clinica.png");
   background-repeat: no-repeat;
 }
 
@@ -319,7 +321,7 @@ p {
 /* covid Section */
 
 #covidSection {
-  background-image: url('../images/la\ clinica.png');
+  background-image: url("../images/la\ clinica.png");
   background-repeat: no-repeat;
 }
 .highlight-covid {
@@ -550,7 +552,7 @@ p {
 /* contact section */
 
 #contactSection {
-  background-image: url('../images/la\ clinica.png');
+  background-image: url("../images/la\ clinica.png");
 }
 
 .padding-container-contact {
