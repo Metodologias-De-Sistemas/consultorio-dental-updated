@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import isEmpty from 'validator/lib/isEmpty';
-import equals from 'validator/lib/equals';
-import { showErrorMsg, showSuccessMsg } from '../../../helpers/message';
-import { showLoading } from '../../../helpers/loading';
-import { crearTurno } from '../../../api/auth';
+import React, { useState } from "react";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import isEmpty from "validator/lib/isEmpty";
+import equals from "validator/lib/equals";
+import { showErrorMsg, showSuccessMsg } from "../../../helpers/message";
+import { showLoading } from "../../../helpers/loading";
+import { crearTurno } from "../../../api/auth";
+import { isAuthenticated } from "../../../helpers/auth";
+
 // import "./Signup.css";
 
 const Cita = () => {
   const [formData, setFormData] = useState({
     dpfecha: null,
-    observacion: 'me duele la muela',
-    horario: '',
+    observacion: "",
+    horario: "",
     successMsg: false,
     errorMsg: false,
     loading: false,
@@ -35,8 +37,8 @@ const Cita = () => {
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
-      successMsg: '',
-      errorMsg: '',
+      successMsg: "",
+      errorMsg: "",
     });
   };
 
@@ -45,16 +47,16 @@ const Cita = () => {
 
     const { fecha, observacion, horario } = formData;
 
-    const strDate = moment(fecha).format('YYYY-MM-DD');
+    const strDate = moment(fecha).format("YYYY-MM-DD");
     //Client side validation
     if (
-      equals(strDate, 'Invalid date') ||
+      equals(strDate, "Invalid date") ||
       isEmpty(observacion) ||
       isEmpty(horario)
     ) {
       setFormData({
         ...formData,
-        errorMsg: 'Todos los campos son requeridos.',
+        errorMsg: "Todos los campos son requeridos.",
       });
     } else {
       // preparacion de estados a mandar al backend
@@ -74,11 +76,11 @@ const Cita = () => {
       // http method request from api/auth.js
       crearTurno(data)
         .then((response) => {
-          console.log('Axios signup success: ', response);
+          console.log("Axios signup success: ", response);
           setFormData({
             fecha: null,
-            observacion: '',
-            horario: '',
+            observacion: "",
+            horario: "",
             loading: false,
             successMsg: response.data.successMessage, //successMessage es un mensaje que viene desde el backend
           });
@@ -90,7 +92,7 @@ const Cita = () => {
           }, 4000);
         })
         .catch((err) => {
-          console.log('Axios signup error: ', err);
+          console.log("Axios signup error: ", err);
           setFormData({
             ...formData,
             loading: false,
@@ -99,6 +101,17 @@ const Cita = () => {
         });
     }
   };
+
+  /* 
+    Lo que devuelve el isAuthenticated()
+    DNI: "37070698"
+    edad: 28
+    email: "sara.elizabeth.ford23@gmail.com"
+    fechaNacimiento: "23-11-1992"
+    nombreCompleto: "Sara Elizabeth Ford"
+    obraSocial: "INSSSEP"
+    rol: 0
+  */
 
   // VIEWS
   const showSignupForm = () => (
@@ -112,11 +125,10 @@ const Cita = () => {
         </div>
         <input
           name="nombreCompleto"
-          value={''}
+          value={isAuthenticated().nombreCompleto}
           className="form-control"
           placeholder="Nombre Completo"
           type="text"
-          // onChange={handleChange}
           disabled="true"
         />
       </div>
@@ -129,11 +141,10 @@ const Cita = () => {
         </div>
         <input
           name="email"
-          value={''}
+          value={isAuthenticated().email}
           className="form-control"
           placeholder="Email"
           type="email"
-          // onChange={handleChange}
           disabled="true"
         />
       </div>
@@ -147,11 +158,10 @@ const Cita = () => {
         </div>
         <input
           name="Fecha de Nacimiento"
-          value={null}
+          value={isAuthenticated().fechaNacimiento}
           className="form-control"
           placeholder="Fecha de Nacimiento"
           type="text"
-          // onChange={handleChange}
           disabled="true"
         />
       </div>
@@ -165,11 +175,10 @@ const Cita = () => {
         </div>
         <input
           name="DNI"
-          value={''}
+          value={isAuthenticated().DNI}
           className="form-control"
           placeholder="D.N.I"
           type="text"
-          // onChange={handleChange}
           maxLength="8"
           disabled="true"
         />
@@ -184,11 +193,10 @@ const Cita = () => {
         </div>
         <input
           name="numDeTelefono"
-          value={''}
+          value={""}
           className="form-control"
           placeholder="Numero de Telefono"
           type="text"
-          // onChange={handleChange}
           disabled="true"
         />
       </div>
@@ -202,11 +210,10 @@ const Cita = () => {
         </div>
         <input
           name="obraSocial"
-          value={''}
+          value={isAuthenticated().obraSocial}
           className="form-control"
           placeholder="Obra Social"
           type="text"
-          // onChange={handleChange}
           readonly
           disabled="true"
         />
@@ -274,7 +281,7 @@ const Cita = () => {
         </div>
         <textarea
           class="form-control"
-          style={{ resize: 'none' }}
+          style={{ resize: "none" }}
           rows="4"
           placeholder="Describa sus sintomas."
           value={observacion}
@@ -306,9 +313,6 @@ const Cita = () => {
           {successMsg && showSuccessMsg(successMsg)}
           {errorMsg && showErrorMsg(errorMsg)}
           {showSignupForm()}
-          {JSON.stringify(formData.dpfecha)}
-          {<br />}
-          {<h1>{horario}</h1>}
           {loading && showLoading()}
         </div>
       </div>
