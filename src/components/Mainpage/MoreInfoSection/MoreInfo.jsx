@@ -21,7 +21,7 @@ const Services = () => {
               </p>
               <div className="d-flex justify-content-center">
                 <img
-                  src="images/foto 2.png"
+                  src="images/foto 2 nb.png"
                   alt=""
                   style={{ height: "265px" }}
                   className="mt-5"

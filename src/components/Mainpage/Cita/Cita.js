@@ -153,7 +153,7 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-birthday-cake fa-lg "></i>
+            <i className="fas fa-birthday-cake fa-lg "></i>
           </span>
         </div>
         <input
@@ -170,7 +170,7 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-id-card"></i>
+            <i className="fas fa-id-card"></i>
           </span>
         </div>
         <input
@@ -188,7 +188,7 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-phone-alt"></i>
+            <i className="fas fa-phone-alt"></i>
           </span>
         </div>
         <input
@@ -205,7 +205,7 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-star-of-life"></i>
+            <i className="fas fa-star-of-life"></i>
           </span>
         </div>
         <input
@@ -226,11 +226,11 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend ">
           <span className="input-group-text">
-            <i class="fas fa-clock"></i>
+            <i className="fas fa-clock"></i>
           </span>
         </div>
         <select
-          class="custom-select "
+          className="custom-select "
           id="inlineFormCustomSelect"
           value={horario}
           onChange={handleChange}
@@ -251,7 +251,7 @@ const Cita = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend ">
           <span className="input-group-text">
-            <i class="fas fa-calendar-alt"></i>
+            <i className="fas fa-calendar-alt"></i>
           </span>
         </div>
         <DatePicker
@@ -273,14 +273,14 @@ const Cita = () => {
       </div>
 
       {/* sintomas */}
-      <div class="form-group input-group">
+      <div className="form-group input-group">
         <div className="input-group-prepend ">
           <span className="input-group-text">
-            <i class="fas fa-pencil-alt"></i>
+            <i className="fas fa-pencil-alt"></i>
           </span>
         </div>
         <textarea
-          class="form-control"
+          className="form-control"
           style={{ resize: "none" }}
           rows="4"
           placeholder="Describa sus sintomas."

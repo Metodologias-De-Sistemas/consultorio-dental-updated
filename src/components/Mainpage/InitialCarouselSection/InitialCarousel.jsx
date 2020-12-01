@@ -32,7 +32,7 @@ const InitialCarousel = () => {
                   <CarouselDescription description={doctorDescription} />
                 </div>
                 <div className="col-lg-6">
-                  <img src="images/Dr feliz.png" class="" alt="" />
+                  <img src="images/Dr feliz.png" className="" alt="" />
                 </div>
               </div>
             </div>

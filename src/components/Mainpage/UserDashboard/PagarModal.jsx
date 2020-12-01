@@ -30,7 +30,7 @@ function PagarModal({ cita }) {
                 <div>
                   <form role="form">
                     {/* Card Owner */}
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="username">
                         <h6>Nombre del titular</h6>
                       </label>
@@ -39,45 +39,45 @@ function PagarModal({ cita }) {
                         name="username"
                         placeholder="Nombre del titular"
                         required
-                        class="form-control"
+                        className="form-control"
                       />
                     </div>
 
-                    <div class="form-group">
+                    <div className="form-group">
                       <label for="cardNumber">
                         <h6>Número de tarjeta</h6>
                       </label>
-                      <div class="input-group">
+                      <div className="input-group">
                         <input
                           type="text"
                           name="cardNumber"
                           placeholder="Número de tarjeta valido"
-                          class="form-control "
+                          className="form-control "
                           required
                         />
-                        <div class="input-group-append">
-                          <span class="input-group-text text-muted">
-                            <i class="fab fa-cc-visa mx-1"></i>
-                            <i class="fab fa-cc-mastercard mx-1"></i>
-                            <i class="fab fa-cc-amex mx-1"></i>
+                        <div className="input-group-append">
+                          <span className="input-group-text text-muted">
+                            <i className="fab fa-cc-visa mx-1"></i>
+                            <i className="fab fa-cc-mastercard mx-1"></i>
+                            <i className="fab fa-cc-amex mx-1"></i>
                           </span>
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-sm-8">
-                        <div class="form-group">
+                    <div className="row">
+                      <div className="col-sm-8">
+                        <div className="form-group">
                           <label>
-                            <span class="hidden-xs">
+                            <span className="hidden-xs">
                               <h6>Fecha de expiración</h6>
                             </span>
                           </label>
-                          <div class="input-group">
+                          <div className="input-group">
                             <input
                               type="number"
                               placeholder="Mes"
                               name=""
-                              class="form-control"
+                              className="form-control"
                               min="1"
                               max="12"
                               required
@@ -86,7 +86,7 @@ function PagarModal({ cita }) {
                               type="number"
                               placeholder="Año"
                               name=""
-                              class="form-control"
+                              className="form-control"
                               min="2020"
                               max="9999"
                               required
@@ -94,17 +94,24 @@ function PagarModal({ cita }) {
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-4">
-                        <div class="form-group mb-4">
+                      <div className="col-sm-4">
+                        <div className="form-group mb-4">
                           <label>
                             <h6>Codigo de Seguridad</h6>
                           </label>
-                          <input type="text" required class="form-control" />
+                          <input
+                            type="text"
+                            required
+                            className="form-control"
+                          />
                         </div>
                       </div>
                     </div>
-                    <div class="card-footer">
-                      <button type="button" class="btn btn-success btn-block">
+                    <div className="card-footer">
+                      <button
+                        type="button"
+                        className="btn btn-success btn-block"
+                      >
                         PAGAR - $600
                       </button>
                     </div>

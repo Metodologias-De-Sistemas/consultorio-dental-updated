@@ -12,7 +12,7 @@ const Navbar = () => {
             width="%100"
             height="45"
             alt=""
-          />
+          />{" "}
           SONRISA FELIZ
         </Link>
 
