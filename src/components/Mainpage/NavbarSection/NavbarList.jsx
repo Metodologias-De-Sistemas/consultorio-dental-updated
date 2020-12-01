@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import NavbarItem from './NavbarItem';
-import { useHistory } from 'react-router-dom';
-import { Link, withRouter } from 'react-router-dom';
-import { isAuthenticated, logout } from '../../../helpers/auth';
+import React, { Fragment } from "react";
+import NavbarItem from "./NavbarItem";
+import { useHistory } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import { isAuthenticated, logout } from "../../../helpers/auth";
 
 const NavbarList = () => {
   const history = useHistory();
   const handleLogout = (evt) => {
     logout(() => {
-      history.push('/signin');
+      history.push("/signin");
     });
   };
 
@@ -44,6 +44,16 @@ const NavbarList = () => {
           <li className="nav-item">
             <Link to="/user/cita" className="nav-link px-3 pl-1 mb-1">
               <i className="fas fa-tooth fa-sm"></i> PEDIR CITA
+            </Link>
+          </li>
+        </Fragment>
+      )}
+
+      {isAuthenticated() && isAuthenticated().rol === 0 && (
+        <Fragment>
+          <li className="nav-item">
+            <Link to="/user/dashboard" className="nav-link px-3 mb-1">
+              VER CITAS
             </Link>
           </li>
         </Fragment>
