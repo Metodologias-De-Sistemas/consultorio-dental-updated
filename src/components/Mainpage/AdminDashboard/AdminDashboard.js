@@ -1,203 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import DataTable from 'react-data-table-component';
-import { getTurnos, borrarTurno, editarTurno, terminarTurno } from '../../../api/auth';
-import TableButton from './TableButton';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import moment from "moment";
+import BackgroundImage from "../../../assets/la-clinica-blur.png";
+import BackgroundImage2 from "../../../assets/plus.svg";
+import { getTurnos } from "../../../api/auth.js";
 
-const AdminDashboard = () => {
+function AdminDashboard() {
   const [turnos, setTurnos] = useState([]);
-  const [select, setSelect] = useState('');
 
   useEffect(() => {
     getTurnos()
       .then((response) => {
-        setTurnos(response.data);
+        const turnoPendientes = response.data.filter(
+          (turno) => turno.estado === "PENDIENTE"
+        );
+        console.log(turnoPendientes);
+        setTurnos(turnoPendientes);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  const handleBorrarTurno = async (id) => {
-    await borrarTurno(id);
+  return (
+    <div className="backgroundAdmin">
+      <h1 className="py-5 backgroundAdminTitle text-white border-bottom border-primary borderCustom-10 text-center">
+        CITAS PENDIENTES
+      </h1>
 
-    const nuevosTurnos = turnos.filter((turno) => turno.id === id);
+      <div
+        className="mx-5 my-3 px-3 pt-4 rounded border border-primary "
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+      >
+        <table className="table-responsive ">
+          <table className="table text-white ">
+            <thead>
+              <tr>
+                <th></th>
+                <th>NOMBRE</th>
+                <th>FECHA</th>
+                <th>HORA</th>
+                <th>DETALLES</th>
+                <th>IMAGEN</th>
+                <th>EDITAR</th>
+                <th>PRESTACION</th>
+                <th>ACEPTAR</th>
+                <th>RECHAZAR</th>
+              </tr>
+            </thead>
+            <tbody>
+              {turnos.map((item, index) => (
+                <tr key={item.id}>
+                  <td>{index}</td>
+                  <td>{item.paciente.nombreCompleto}</td>
+                  <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
+                  <td>
+                    {item.horario >= 12
+                      ? item.horario + "pm"
+                      : item.horario + "am"}{" "}
+                    hs
+                  </td>
+                  <td>
+                    <button className="btn btn-primary">DETALLES</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-primary">IMAGEN</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-primary">EDITAR</button>
+                  </td>
+                  <td>
+                    <div className="form-group">
+                      <select
+                        className="form-control"
+                        id="exampleFormControlSelect1"
+                      >
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                  </td>
 
-    setTurnos(nuevosTurnos);
-  };
-
-  const handleTerminarTurno = async (id) => {
-    await terminarTurno(id, 'Esto es una prueba');
-  }
-
-  const handleAceptarTurno = async (id) => {
-    const data = {
-      estado: 'ACEPTADO',
-      prestacion: `${select}`,
-    };
-
-    await editarTurno(id, data);
-
-    const nuevosTurnos = await getTurnos();
-    setTurnos(nuevosTurnos);
-  };
-
-  const mostrarTablaTurno = () => {
-    const columnas = [
-      {
-        name: 'Nombre',
-        selector: 'paciente.nombreCompleto',
-        sorteable: true,
-      },
-      {
-        name: 'DNI',
-        selector: 'paciente.DNI',
-        sorteable: true,
-      },
-      {
-        name: 'Email',
-        selector: 'paciente.email',
-        sorteable: true,
-      },
-      {
-        name: 'Obra Social',
-        selector: 'paciente.obraSocial',
-        sorteable: true,
-      },
-      {
-        name: 'Fecha',
-        selector: 'fecha',
-        sorteable: true,
-      },
-      {
-        name: 'Horario',
-        selector: 'horario',
-        sorteable: true,
-      },
-      {
-        name: 'Sintomas',
-        selector: 'observacion',
-        sorteable: true,
-        grow: 1.5,
-      },
-      {
-        name: 'Estado de la Cita',
-        selector: 'estado'
-      },
-      {
-        cell: (row) => (
-          <TableButton
-            className="btn btn-success btn-sm"
-            text="Aceptar"
-            handleClick={() => handleAceptarTurno(row.id)}
-            id={row.id}
-          />
-        ),
-        ignoreRowClick: true,
-        allowOverflow: true,
-        button: true,
-      },
-      {
-        cell: (row) => (
-          <TableButton
-            className="btn btn-danger btn-sm"
-            text="Rechazar"
-            handleClick={() => handleBorrarTurno(row.id)}
-            id={row.id}
-          />
-        ),
-      },
-      {
-        cell: (row) => (
-          <select
-            onChange={({ target }) => {
-              setSelect(target.value);
-            }}
-          >
-            <option value=""> Elija Prestacion </option>
-            <option value="RELEVAMIENTO BUCAL">RELEVAMIENTO BUCAL</option>
-            <option value="RESTAURACION DE PIEZAS DENTALES">
-              RESTAURACION DE PIEZAS DENTALES{' '}
-            </option>
-            <option value="TRATAMIENTO DE CARIES">
-              TRATAMIENTO DE CARIES{' '}
-            </option>
-            <option value="ENDODONCIA">ENDODONCIA </option>
-            <option value="EXTRACCION DE PIZAS DENTALES">
-              EXTRACCION DE PIZAS DENTALES{' '}
-            </option>
-            <option value="LIMPIEZA BUCAL">LIMPIEZA BUCAL </option>
-            <option value="RETRACCION GINGIVAL">RETRACCION GINGIVAL </option>
-            <option value="BLANQUEAMIENTO BUCAL">BLANQUEAMIENTO BUCAL</option>
-            <option value="CARILLAS DE CERAMICA">CARILLAS DE CERAMICA </option>
-            <option value="CARILLAS DE PORCELANA">
-              CARILLAS DE PORCELANA{' '}
-            </option>
-            <option value="CARILLAS DE CEROMEROS">
-              CARILLAS DE CEROMEROS{' '}
-            </option>
-            <option value="IMPLANTES">IMPLANTES </option>
-            <option value="ORTODONCIA ESTETICA">ORTODONCIA ESTETICA</option>
-          </select>
-        ),
-      },
-    ];
-
-    const columnasAceptados = [
-      {
-        name: 'Nombre',
-        selector: 'paciente.nombreCompleto'
-      },
-      {
-        name: 'DNI',
-        selector: 'paciente.DNI'
-      },
-      {
-        name: 'Obra Social',
-        selector: 'paciente.obraSocial'
-      },
-      {
-        name: 'Fecha',
-        selector: 'fecha',
-        sorteable: true,
-      },
-      {
-        name: 'Horario',
-        selector: 'horario',
-        sorteable: true,
-      },
-      {
-        name: 'Observacion',
-        cell: (row) => (
-          <textarea />
-        )
-      },
-      {
-        cell: (row) => (
-          <TableButton
-            className="btn btn-success btn-sm"
-            text="Terminar Turno"
-            handleClick={() => console.log(row.id)}
-            id={row.id}
-            />
-        )
-      }
-    ]
-
-    return (
-      <div className="table-responsive">
-        <DataTable
-          columns={columnas}
-          data={turnos.filter((turno) => turno.estado === 'PENDIENTE')}
-          title="Turnos Pendientes"
-        />
-        <DataTable
-          data={turnos.filter((turno) => turno.estado === 'ACEPTADO')}
-          columns={columnasAceptados}
-          title="Turnos Aceptados"
-          />
+                  <td style={{}}>
+                    <button className="btn btn-success">ACEPTAR</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">RECHAZAR</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </table>
       </div>
-    );
-  };
-
-  return <div>{mostrarTablaTurno()}</div>;
-};
+    </div>
+  );
+}
 
 export default AdminDashboard;
