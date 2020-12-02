@@ -219,9 +219,9 @@ const Cita = () => {
         />
       </div>
 
+      <hr className="w-100 border border-primary" />
+      <h3 className="text-center">COMPLETAR LOS DATOS</h3>
       <br />
-      <h3 className="text-center">Completar los Datos.</h3>
-
       {/* horario*/}
       <div className="form-group input-group">
         <div className="input-group-prepend ">
@@ -297,10 +297,15 @@ const Cita = () => {
         </button>
       </div>
 
-      <p className="text-center text-dark bg-warning rounded">
-        La doctora evaluara su pedido de cita, recibira un email si su pedido
-        fue aceptado o rechazado. <br />
-        Muchas gracias!
+      <p
+        className="text-center text-white rounded py-2"
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+      >
+        <i>
+          "La doctora evaluara su pedido de cita, recibira un email si su pedido
+          fue aceptado o rechazado. <br />
+          Muchas gracias!"
+        </i>
       </p>
     </form>
   );

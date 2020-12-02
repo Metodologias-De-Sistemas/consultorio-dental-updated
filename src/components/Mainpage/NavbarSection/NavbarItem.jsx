@@ -5,7 +5,7 @@ const NavbarItem = ({ href, text }) => {
   return (
     <>
       <li className="nav-item">
-        <HashLink className="nav-link" to={href}>
+        <HashLink className="nav-link pl-2" to={href}>
           {text}
         </HashLink>
       </li>

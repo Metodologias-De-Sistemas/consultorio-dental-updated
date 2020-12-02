@@ -18,7 +18,7 @@ html {
 
 .navbar-brand {
   font-family: "Titillium Web", sans-serif;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 2rem;
 }
 
@@ -29,8 +29,15 @@ html {
 
 .nav-item {
   font-family: "Titillium Web", sans-serif;
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.2rem;
+}
+
+.btnSalir {
+  color: rgba(0, 0, 0, 0.5);
+}
+.btnSalir:hover {
+  color: red;
 }
 
 /* inital carousel */

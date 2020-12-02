@@ -4,6 +4,8 @@ import moment from "moment";
 import BackgroundImage from "../../../assets/la-clinica-blur.png";
 import BackgroundImage2 from "../../../assets/plus.svg";
 import { getTurnos } from "../../../api/auth.js";
+import DetalleModal from "./DetallesModal";
+import muelita from "../../../assets/muelita.svg";
 
 function AdminDashboard() {
   const [turnos, setTurnos] = useState([]);
@@ -34,16 +36,16 @@ function AdminDashboard() {
           <table className="table text-white ">
             <thead>
               <tr>
-                <th></th>
-                <th>NOMBRE</th>
-                <th>FECHA</th>
-                <th>HORA</th>
-                <th>DETALLES</th>
-                <th>IMAGEN</th>
-                <th>EDITAR</th>
-                <th>PRESTACION</th>
-                <th>ACEPTAR</th>
-                <th>RECHAZAR</th>
+                <th style={{ width: "2%" }}></th>
+                <th style={{ width: "10%" }}>NOMBRE</th>
+                <th style={{ width: "8%" }}>FECHA</th>
+                <th style={{ width: "8%" }}>HORA</th>
+                <th style={{ width: "8%" }}>DETALLES</th>
+                <th style={{ width: "8%" }}>IMAGEN</th>
+                <th style={{ width: "7%" }}>EDITAR</th>
+                <th style={{ width: "15%" }}>PRESTACION</th>
+                <th style={{ width: "6%" }}>ACEPTAR</th>
+                <th style={{ width: "6%" }}>RECHAZAR</th>
               </tr>
             </thead>
             <tbody>
@@ -59,7 +61,7 @@ function AdminDashboard() {
                     hs
                   </td>
                   <td>
-                    <button className="btn btn-primary">DETALLES</button>
+                    <DetalleModal cita={item} />
                   </td>
                   <td>
                     <button className="btn btn-primary">IMAGEN</button>
@@ -72,6 +74,7 @@ function AdminDashboard() {
                       <select
                         className="form-control"
                         id="exampleFormControlSelect1"
+                        style={{ width: "85%" }}
                       >
                         <option>1</option>
                         <option>2</option>
