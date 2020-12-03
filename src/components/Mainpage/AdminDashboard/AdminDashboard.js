@@ -5,6 +5,8 @@ import BackgroundImage from "../../../assets/la-clinica-blur.png";
 import BackgroundImage2 from "../../../assets/plus.svg";
 import { getTurnos } from "../../../api/auth.js";
 import DetalleModal from "./DetallesModal";
+import AceptarModal from "./AceptarModal";
+import EditarModal from "./EditarModal";
 import muelita from "../../../assets/muelita.svg";
 
 function AdminDashboard() {
@@ -16,7 +18,7 @@ function AdminDashboard() {
         const turnoPendientes = response.data.filter(
           (turno) => turno.estado === "PENDIENTE"
         );
-        console.log(turnoPendientes);
+        //console.log(turnoPendientes);
         setTurnos(turnoPendientes);
       })
       .catch((err) => console.error(err));
@@ -43,7 +45,6 @@ function AdminDashboard() {
                 <th style={{ width: "8%" }}>DETALLES</th>
                 <th style={{ width: "8%" }}>IMAGEN</th>
                 <th style={{ width: "7%" }}>EDITAR</th>
-                <th style={{ width: "15%" }}>PRESTACION</th>
                 <th style={{ width: "6%" }}>ACEPTAR</th>
                 <th style={{ width: "6%" }}>RECHAZAR</th>
               </tr>
@@ -72,26 +73,11 @@ function AdminDashboard() {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-primary">EDITAR</button>
-                  </td>
-                  <td>
-                    <div className="form-group">
-                      <select
-                        className="form-control"
-                        id="exampleFormControlSelect1"
-                        style={{ width: "85%" }}
-                      >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
+                    <EditarModal cita={item} />
                   </td>
 
-                  <td style={{}}>
-                    <button className="btn btn-success">ACEPTAR</button>
+                  <td>
+                    <AceptarModal cita={item} />
                   </td>
                   <td>
                     <button className="btn btn-danger">RECHAZAR</button>
