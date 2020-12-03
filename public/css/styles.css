@@ -244,19 +244,6 @@ p {
   padding: 85px 65px;
 }
 
-.card {
-  background-color: transparent;
-  border: none;
-}
-
-.card-body {
-  color: white;
-}
-
-.card-body h2 {
-  font-size: 2rem;
-}
-
 .hide-container-dra {
   visibility: initial;
 }
