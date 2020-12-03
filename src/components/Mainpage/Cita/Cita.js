@@ -349,7 +349,7 @@ const Cita = () => {
   // RENDER
   return (
     <div className="signup-container container-fluid">
-      <div className="row px-3 vh-100">
+      <div className="row px-3 py-3">
         <div className="col-md-5 mx-auto align-self-center">
           {successMsg && showSuccessMsg(successMsg)}
           {errorMsg && showErrorMsg(errorMsg)}
