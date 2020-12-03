@@ -102,6 +102,14 @@ const Cita = () => {
     }
   };
 
+  const [imagen, setImagen] = useState("");
+
+  const fileSelectedHandler = (e) => {
+    setImagen(e.target.files[0]);
+    console.log(e.target.files[0]);
+    //console.log(e.target.files[0].name);
+  };
+
   /* 
     Lo que devuelve el isAuthenticated()
     DNI: "37070698"
@@ -112,6 +120,17 @@ const Cita = () => {
     obraSocial: "INSSSEP"
     rol: 0
   */
+  let nombreImagen = null;
+
+  if (imagen === "") {
+    nombreImagen = "Elegir Imagen";
+  } else if (imagen === undefined) {
+    nombreImagen = "Elegir Imagen";
+  } else if (imagen === null) {
+    nombreImagen = "Elegir Imagen";
+  } else {
+    nombreImagen = imagen.name;
+  }
 
   // VIEWS
   const showSignupForm = () => (
@@ -292,6 +311,19 @@ const Cita = () => {
             name="observacion"
             onChange={handleChange}
           ></textarea>
+        </div>
+
+        {/* Subit imagen */}
+        <div className="custom-file mb-3">
+          <input
+            type="file"
+            className="custom-file-input"
+            id="customFile"
+            onChange={fileSelectedHandler}
+          />
+          <label className="custom-file-label" for="customFile">
+            {nombreImagen}
+          </label>
         </div>
 
         {/* signup button */}
