@@ -115,199 +115,203 @@ const Cita = () => {
 
   // VIEWS
   const showSignupForm = () => (
-    <form className="signup-form" onSubmit={handleSubmit} noValidate>
-      {/* Nombre Completo */}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fa fa-user"></i>
-          </span>
+    <>
+      <form className="signup-form" onSubmit={handleSubmit} noValidate>
+        {/* Nombre Completo */}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fa fa-user"></i>
+            </span>
+          </div>
+          <input
+            name="nombreCompleto"
+            value={isAuthenticated().nombreCompleto}
+            className="form-control"
+            placeholder="Nombre Completo"
+            type="text"
+            disabled="true"
+          />
         </div>
-        <input
-          name="nombreCompleto"
-          value={isAuthenticated().nombreCompleto}
-          className="form-control"
-          placeholder="Nombre Completo"
-          type="text"
-          disabled="true"
-        />
-      </div>
-      {/* email */}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fa fa-envelope"></i>
-          </span>
+        {/* email */}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input
+            name="email"
+            value={isAuthenticated().email}
+            className="form-control"
+            placeholder="Email"
+            type="email"
+            disabled="true"
+          />
         </div>
-        <input
-          name="email"
-          value={isAuthenticated().email}
-          className="form-control"
-          placeholder="Email"
-          type="email"
-          disabled="true"
-        />
-      </div>
 
-      {/* fecha de nacimiento*/}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fas fa-birthday-cake fa-lg "></i>
-          </span>
+        {/* fecha de nacimiento*/}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-birthday-cake fa-lg "></i>
+            </span>
+          </div>
+          <input
+            name="Fecha de Nacimiento"
+            value={isAuthenticated().fechaNacimiento}
+            className="form-control"
+            placeholder="Fecha de Nacimiento"
+            type="text"
+            disabled="true"
+          />
         </div>
-        <input
-          name="Fecha de Nacimiento"
-          value={isAuthenticated().fechaNacimiento}
-          className="form-control"
-          placeholder="Fecha de Nacimiento"
-          type="text"
-          disabled="true"
-        />
-      </div>
 
-      {/* D.N.I*/}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fas fa-id-card"></i>
-          </span>
+        {/* D.N.I*/}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-id-card"></i>
+            </span>
+          </div>
+          <input
+            name="DNI"
+            value={isAuthenticated().DNI}
+            className="form-control"
+            placeholder="D.N.I"
+            type="text"
+            maxLength="8"
+            disabled="true"
+          />
         </div>
-        <input
-          name="DNI"
-          value={isAuthenticated().DNI}
-          className="form-control"
-          placeholder="D.N.I"
-          type="text"
-          maxLength="8"
-          disabled="true"
-        />
-      </div>
 
-      {/* numero de telefono */}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fas fa-phone-alt"></i>
-          </span>
+        {/* numero de telefono */}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-phone-alt"></i>
+            </span>
+          </div>
+          <input
+            name="numDeTelefono"
+            value={""}
+            className="form-control"
+            placeholder="Numero de Telefono"
+            type="text"
+            disabled="true"
+          />
         </div>
-        <input
-          name="numDeTelefono"
-          value={""}
-          className="form-control"
-          placeholder="Numero de Telefono"
-          type="text"
-          disabled="true"
-        />
-      </div>
 
-      {/* Obra Social */}
-      <div className="form-group input-group">
-        <div className="input-group-prepend">
-          <span className="input-group-text">
-            <i className="fas fa-star-of-life"></i>
-          </span>
+        {/* Obra Social */}
+        <div className="form-group input-group">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <i className="fas fa-star-of-life"></i>
+            </span>
+          </div>
+          <input
+            name="obraSocial"
+            value={isAuthenticated().obraSocial}
+            className="form-control"
+            placeholder="Obra Social"
+            type="text"
+            readonly
+            disabled="true"
+          />
         </div>
-        <input
-          name="obraSocial"
-          value={isAuthenticated().obraSocial}
-          className="form-control"
-          placeholder="Obra Social"
-          type="text"
-          readonly
-          disabled="true"
-        />
-      </div>
 
-      <hr className="w-100 border border-primary" />
-      <h3 className="text-center">COMPLETAR LOS DATOS</h3>
-      <br />
-      {/* horario*/}
-      <div className="form-group input-group">
-        <div className="input-group-prepend ">
-          <span className="input-group-text">
-            <i className="fas fa-clock"></i>
-          </span>
+        <hr className="w-100 border border-primary" />
+
+        <h3 className="text-center">COMPLETAR LOS DATOS</h3>
+        <hr className="w-50 border border-primary" />
+
+        <br />
+        {/* horario*/}
+        <div className="form-group input-group">
+          <div className="input-group-prepend ">
+            <span className="input-group-text">
+              <i className="fas fa-clock"></i>
+            </span>
+          </div>
+          <select
+            className="custom-select "
+            id="inlineFormCustomSelect"
+            value={horario}
+            onChange={handleChange}
+            name="horario"
+          >
+            <option value=""> Elija Horario de la cita</option>
+            <option value="8">MAÑANA | 08:00hs - 09:00hs </option>
+            <option value="9">MAÑANA | 09:00hs - 10:00hs </option>
+            <option value="10">MAÑANA | 10:00hs - 11:00hs </option>
+            <option value="11">MAÑANA | 11:00hs - 12:00hs </option>
+            <option value="16">TARDE᲼᲼᲼ | 16:00hs - 17:00hs </option>
+            <option value="17">TARDE᲼᲼᲼ | 17:00hs - 18:00hs </option>
+            <option value="18">TARDE᲼᲼᲼ | 18:00hs - 19:00hs </option>
+          </select>
         </div>
-        <select
-          className="custom-select "
-          id="inlineFormCustomSelect"
-          value={horario}
-          onChange={handleChange}
-          name="horario"
+
+        {/* Date Picker fecha cita*/}
+        <div className="form-group input-group">
+          <div className="input-group-prepend ">
+            <span className="input-group-text">
+              <i className="fas fa-calendar-alt"></i>
+            </span>
+          </div>
+          <DatePicker
+            placeholderText="Elija Fecha de la cita."
+            selected={dpfecha}
+            onChange={(date) =>
+              setFormData({
+                ...formData,
+                dpfecha: date,
+              })
+            }
+            dateFormat="dd/MM/yyyy"
+            minDate={new Date()}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+            filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
+          />
+        </div>
+
+        {/* sintomas */}
+        <div className="form-group input-group">
+          <div className="input-group-prepend ">
+            <span className="input-group-text">
+              <i className="fas fa-pencil-alt"></i>
+            </span>
+          </div>
+          <textarea
+            className="form-control"
+            style={{ resize: "none" }}
+            rows="4"
+            placeholder="Describa sus sintomas."
+            value={observacion}
+            name="observacion"
+            onChange={handleChange}
+          ></textarea>
+        </div>
+
+        {/* signup button */}
+        <div className="form-group">
+          <button type="submit" className="btn btn-primary btn-block">
+            Pedir Cita
+          </button>
+        </div>
+        <p
+          className="text-center text-white rounded py-2"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
         >
-          <option value=""> Elija Horario de la cita</option>
-          <option value="8">MAÑANA | 08:00hs - 09:00hs </option>
-          <option value="9">MAÑANA | 09:00hs - 10:00hs </option>
-          <option value="10">MAÑANA | 10:00hs - 11:00hs </option>
-          <option value="11">MAÑANA | 11:00hs - 12:00hs </option>
-          <option value="16">TARDE᲼᲼᲼ | 16:00hs - 17:00hs </option>
-          <option value="17">TARDE᲼᲼᲼ | 17:00hs - 18:00hs </option>
-          <option value="18">TARDE᲼᲼᲼ | 18:00hs - 19:00hs </option>
-        </select>
-      </div>
-
-      {/* Date Picker fecha cita*/}
-      <div className="form-group input-group">
-        <div className="input-group-prepend ">
-          <span className="input-group-text">
-            <i className="fas fa-calendar-alt"></i>
-          </span>
-        </div>
-        <DatePicker
-          placeholderText="Elija Fecha de la cita."
-          selected={dpfecha}
-          onChange={(date) =>
-            setFormData({
-              ...formData,
-              dpfecha: date,
-            })
-          }
-          dateFormat="dd/MM/yyyy"
-          minDate={new Date()}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
-        />
-      </div>
-
-      {/* sintomas */}
-      <div className="form-group input-group">
-        <div className="input-group-prepend ">
-          <span className="input-group-text">
-            <i className="fas fa-pencil-alt"></i>
-          </span>
-        </div>
-        <textarea
-          className="form-control"
-          style={{ resize: "none" }}
-          rows="4"
-          placeholder="Describa sus sintomas."
-          value={observacion}
-          name="observacion"
-          onChange={handleChange}
-        ></textarea>
-      </div>
-
-      {/* signup button */}
-      <div className="form-group">
-        <button type="submit" className="btn btn-primary btn-block">
-          Pedir Cita
-        </button>
-      </div>
-
-      <p
-        className="text-center text-white rounded py-2"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
-      >
-        <i>
-          "La doctora evaluara su pedido de cita, recibira un email si su pedido
-          fue aceptado o rechazado. <br />
-          Muchas gracias!"
-        </i>
-      </p>
-    </form>
+          <i>
+            "La doctora evaluara su pedido de cita, recibira un email si su
+            pedido fue aceptado o rechazado. <br />
+            Muchas gracias!"
+          </i>
+        </p>
+      </form>
+    </>
   );
 
   // RENDER

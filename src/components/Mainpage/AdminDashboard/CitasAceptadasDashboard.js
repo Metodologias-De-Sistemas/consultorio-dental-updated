@@ -7,14 +7,14 @@ import { getTurnos } from "../../../api/auth.js";
 import DetalleModal from "./DetallesModal";
 import muelita from "../../../assets/muelita.svg";
 
-function AdminDashboard() {
+function CitasAceptadasDashboard() {
   const [turnos, setTurnos] = useState([]);
 
   useEffect(() => {
     getTurnos()
       .then((response) => {
         const turnoPendientes = response.data.filter(
-          (turno) => turno.estado === "PENDIENTE"
+          (turno) => turno.estado === "ACEPTADO"
         );
         console.log(turnoPendientes);
         setTurnos(turnoPendientes);
@@ -24,12 +24,12 @@ function AdminDashboard() {
 
   return (
     <div className="backgroundAdmin">
-      <h1 className="py-5 backgroundAdminTitle text-white border-bottom border-primary borderCustom-10 text-center">
-        CITAS PENDIENTES
+      <h1 className="py-5 backgroundAdminTitle text-white border-bottom border-warning borderCustom-10 text-center">
+        CITAS ACEPTADAS
       </h1>
 
       <div
-        className="mx-5 my-3 px-3 pt-4 rounded border border-primary "
+        className="mx-5 my-3 px-3 pt-4 rounded border border-warning "
         style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
       >
         <table className="table-responsive ">
@@ -40,19 +40,18 @@ function AdminDashboard() {
                 <th style={{ width: "10%" }}>NOMBRE</th>
                 <th style={{ width: "8%" }}>FECHA</th>
                 <th style={{ width: "8%" }}>HORA</th>
+                <th style={{ width: "12%" }}>PRESTACION</th>
+                <th style={{ width: "8%" }}>ESTADO DE PAGO</th>
                 <th style={{ width: "8%" }}>DETALLES</th>
                 <th style={{ width: "8%" }}>IMAGEN</th>
-                <th style={{ width: "7%" }}>EDITAR</th>
-                <th style={{ width: "15%" }}>PRESTACION</th>
-                <th style={{ width: "6%" }}>ACEPTAR</th>
-                <th style={{ width: "6%" }}>RECHAZAR</th>
+                <th style={{ width: "8%" }}>FINALIZAR</th>
               </tr>
             </thead>
             <tbody>
               {turnos.map((item, index) => (
                 <tr key={item.id}>
                   <td>{index}</td>
-                  <td>{item.paciente.nombreCompleto}</td>
+                  <td>{/* {item.paciente.nombreCompleto} */}</td>
                   <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
                   <td>
                     {item.horario >= 12
@@ -60,9 +59,9 @@ function AdminDashboard() {
                       : item.horario + "am"}{" "}
                     hs
                   </td>
-                  <td>
-                    <DetalleModal cita={item} />
-                  </td>
+                  <td>{item.prestacion}</td>
+                  <td>PAGADO</td>
+                  <td>{/* <DetalleModal cita={item} /> */}</td>
                   <td>
                     <button
                       className="btn btn-primary"
@@ -72,29 +71,7 @@ function AdminDashboard() {
                     </button>
                   </td>
                   <td>
-                    <button className="btn btn-primary">EDITAR</button>
-                  </td>
-                  <td>
-                    <div className="form-group">
-                      <select
-                        className="form-control"
-                        id="exampleFormControlSelect1"
-                        style={{ width: "85%" }}
-                      >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                    </div>
-                  </td>
-
-                  <td style={{}}>
-                    <button className="btn btn-success">ACEPTAR</button>
-                  </td>
-                  <td>
-                    <button className="btn btn-danger">RECHAZAR</button>
+                    <button className="btn btn-success">FINALIZAR</button>
                   </td>
                 </tr>
               ))}
@@ -106,4 +83,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default CitasAceptadasDashboard;

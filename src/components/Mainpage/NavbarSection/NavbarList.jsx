@@ -66,6 +66,26 @@ const NavbarList = () => {
       {isAuthenticated() && isAuthenticated().rol === 1 && (
         <Fragment>
           <li className="nav-item">
+            <Link to="/admin/pacientes" className="nav-link pl-2">
+              PACIENTES
+            </Link>
+          </li>
+        </Fragment>
+      )}
+
+      {isAuthenticated() && isAuthenticated().rol === 1 && (
+        <Fragment>
+          <li className="nav-item">
+            <Link to="/admin/aceptados" className="nav-link pl-2">
+              CITAS ACEPTADAS
+            </Link>
+          </li>
+        </Fragment>
+      )}
+
+      {isAuthenticated() && isAuthenticated().rol === 1 && (
+        <Fragment>
+          <li className="nav-item">
             <Link to="/admin/dashboard" className="nav-link pl-2">
               CITAS PENDIENTES
             </Link>

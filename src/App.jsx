@@ -10,6 +10,8 @@ import AdminRoute from "./components/Mainpage/AdminRoute/AdminRoute";
 import UserRoute from "./components/Mainpage/UserRoute/UserRoute";
 import Navbar from "./components/Mainpage/NavbarSection/Navbar";
 import UserDashboard from "./components/Mainpage/UserDashboard/UserDashboard";
+import CitasAceptadasDashboard from "./components/Mainpage/AdminDashboard/CitasAceptadasDashboard";
+import PacientesDashboard from "./components/Mainpage/AdminDashboard/PacientesDashboard";
 
 const App = () => {
   return (
@@ -29,6 +31,19 @@ const App = () => {
               path="/admin/dashboard"
               component={AdminDashboard}
             />
+
+            <AdminRoute
+              exact
+              path="/admin/aceptados"
+              component={CitasAceptadasDashboard}
+            />
+
+            <AdminRoute
+              exact
+              path="/admin/pacientes"
+              component={PacientesDashboard}
+            />
+
             <Route component={NotFound} />
           </Switch>
         </main>
