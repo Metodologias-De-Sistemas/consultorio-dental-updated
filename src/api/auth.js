@@ -1,14 +1,14 @@
-import axios from 'axios';
-import { getCookie } from '../helpers/cookies';
+import axios from "axios";
+import { getCookie } from "../helpers/cookies";
 
-const baseUrl = 'http://localhost:3001/api';
+const baseUrl = "http://localhost:3001/api";
 
 export const registrarUsuario = async (informacionRegistro) => {
   const url = `${baseUrl}/pacientes/registro`;
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -22,7 +22,7 @@ export const logearUsuario = async (credenciales) => {
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -32,13 +32,13 @@ export const logearUsuario = async (credenciales) => {
 };
 
 export const crearTurno = async (informacionTurno) => {
-  const token = getCookie('token');
+  const token = getCookie("token");
   const url = `${baseUrl}/turnos`;
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
   const { data } = await axios.post(url, informacionTurno, config);
@@ -47,13 +47,30 @@ export const crearTurno = async (informacionTurno) => {
 };
 
 export const getTurnos = async () => {
-  const token = getCookie('token');
+  const token = getCookie("token");
   const url = `${baseUrl}/turnos`;
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
+    },
+  };
+
+  const { data } = await axios.get(url, config);
+  console.log(data);
+
+  return data;
+};
+
+export const getPacientes = async () => {
+  const token = getCookie("token");
+  const url = `${baseUrl}/pacientes`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   };
 
@@ -64,13 +81,13 @@ export const getTurnos = async () => {
 };
 
 export const borrarTurno = async (id) => {
-  const token = getCookie('token');
+  const token = getCookie("token");
   const url = `${baseUrl}/turnos/${id}`;
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -80,13 +97,13 @@ export const borrarTurno = async (id) => {
 };
 
 export const editarTurno = async (id, obj) => {
-  const token = getCookie('token');
+  const token = getCookie("token");
   const url = `${baseUrl}/turnos/${id}`;
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -96,13 +113,13 @@ export const editarTurno = async (id, obj) => {
 };
 
 export const terminarTurno = async (id, text) => {
-  const token = getCookie('token');
-  const url = `${baseUrl}/consultas`
+  const token = getCookie("token");
+  const url = `${baseUrl}/consultas`;
 
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    }
-  }
-}
+      "Content-Type": "application/json",
+    },
+  };
+};

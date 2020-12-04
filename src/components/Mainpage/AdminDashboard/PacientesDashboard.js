@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { getTurnos } from "../../../api/auth.js";
+import { getPacientes } from "../../../api/auth.js";
 import HistoriaClinicaModal from "./HistoriaClinicaModal";
 
 function PacientesDashboard() {
-  const [turnos, setTurnos] = useState([]);
+  const [paciente, setPaciente] = useState([]);
 
   useEffect(() => {
-    getTurnos()
+    getPacientes()
       .then((response) => {
-        const turnoPendientes = response.data.filter(
-          (turno) => turno.estado === "PENDIENTE"
-        );
-        //console.log(turnoPendientes);
-        setTurnos(turnoPendientes);
+        console.log(response);
+        setPaciente(response.data);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -44,17 +41,15 @@ function PacientesDashboard() {
               </tr>
             </thead>
             <tbody>
-              {turnos.map((item, index) => (
+              {paciente.map((item, index) => (
                 <tr key={item.id}>
                   <td>{index}</td>
-                  <td>{item.paciente.nombreCompleto}</td>
-                  <td>{item.paciente.DNI}</td>
-                  <td className="text-center">{item.paciente.edad}</td>
-                  <td>{item.paciente.email}</td>
-                  <td>{item.paciente.obraSocial}</td>
-                  <td>
-                    <HistoriaClinicaModal cita={item} />
-                  </td>
+                  <td>{item.nombreCompleto}</td>
+                  <td>{item.DNI}</td>
+                  <td className="text-center">{item.edad}</td>
+                  <td>{item.email}</td>
+                  <td>{item.obraSocial}</td>
+                  <td>{/* <HistoriaClinicaModal cita={item} /> */}</td>
                 </tr>
               ))}
             </tbody>
