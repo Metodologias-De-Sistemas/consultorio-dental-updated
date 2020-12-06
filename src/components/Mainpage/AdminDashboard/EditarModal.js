@@ -1,14 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { getFechasOcupadas, editarTurno } from "../../../api/auth.js";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
 function EditarModal({ cita }) {
   const [horario, setHorario] = useState("");
   const [fecha, setFecha] = useState("");
+  const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
-  const editarCita = () => {
-    console.log(moment(fecha).format("YYYY-MM-DD") + " " + horario);
+  const editarCita = async () => {
+    // logica de editar fecha
+    if (horario === "") {
+      console.log("Datos incompletos!");
+    } else if (fecha === "") {
+      console.log("Datos incompletos!");
+    } else {
+      // ahora editar fecha.
+      //console.log(moment(fecha).format("YYYY-MM-DD") + " " + horario);
+      const data = {
+        fecha: moment(fecha).format("YYYY-MM-DD"),
+        horario: horario,
+      };
+      await editarTurno(cita.id, data);
+
+      window.location = "/admin/dashboard";
+    }
   };
+
+  useEffect(() => {
+    getFechasOcupadas()
+      .then((res) => setFechasOcupadas(res))
+      .catch(console.error);
+  }, []);
+
   return (
     <div>
       <div className="text-dark">
@@ -82,6 +106,7 @@ function EditarModal({ cita }) {
                     filterDate={(date) =>
                       date.getDay() !== 6 && date.getDay() !== 0
                     }
+                    excludeDates={fechasOcupadas}
                   />
                 </div>
                 {moment(fecha).format("DD-MM-YYYY") + " " + horario}

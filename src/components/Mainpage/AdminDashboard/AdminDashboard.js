@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import BackgroundImage from "../../../assets/la-clinica-blur.png";
 import BackgroundImage2 from "../../../assets/plus.svg";
-import { getTurnos } from "../../../api/auth.js";
+import { getTurnos, borrarTurno } from "../../../api/auth.js";
 import DetalleModal from "./DetallesModal";
 import AceptarModal from "./AceptarModal";
 import EditarModal from "./EditarModal";
@@ -12,6 +12,7 @@ import muelita from "../../../assets/muelita.svg";
 function AdminDashboard() {
   const [turnos, setTurnos] = useState([]);
 
+  // mostrar turnos PENDIENTE
   useEffect(() => {
     getTurnos()
       .then((response) => {
@@ -23,6 +24,13 @@ function AdminDashboard() {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  // borrar turno
+  const rechazarTurno = async (id) => {
+    console.log(id);
+    await borrarTurno(id);
+    window.location = "/admin/dashboard";
+  };
 
   return (
     <div className="backgroundAdmin">
@@ -50,40 +58,49 @@ function AdminDashboard() {
               </tr>
             </thead>
             <tbody>
-              {turnos.map((item, index) => (
-                <tr key={item.id}>
-                  <td>{index}</td>
-                  <td>{item.paciente.nombreCompleto}</td>
-                  <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
-                  <td>
-                    {item.horario >= 12
-                      ? item.horario + "pm"
-                      : item.horario + "am"}{" "}
-                    hs
-                  </td>
-                  <td>
-                    <DetalleModal cita={item} />
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-primary"
-                      // onClick={(e) => window.open("https://twitter.com/home")} // abro una nueva ventana con el link de la imagen.
-                    >
-                      IMAGEN
-                    </button>
-                  </td>
-                  <td>
-                    <EditarModal cita={item} />
-                  </td>
+              {turnos
+                .sort(
+                  (a, b) => moment(a.fecha).toDate() - moment(b.fecha).toDate()
+                )
+                .map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index}</td>
+                    <td>{item.paciente.nombreCompleto}</td>
+                    <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
+                    <td>
+                      {item.horario >= 12
+                        ? item.horario + "pm"
+                        : item.horario + "am"}{" "}
+                      hs
+                    </td>
+                    <td>
+                      <DetalleModal cita={item} />
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-primary"
+                        // onClick={(e) => window.open("https://twitter.com/home")} // abro una nueva ventana con el link de la imagen.
+                      >
+                        IMAGEN
+                      </button>
+                    </td>
+                    <td>
+                      <EditarModal cita={item} />
+                    </td>
 
-                  <td>
-                    <AceptarModal cita={item} />
-                  </td>
-                  <td>
-                    <button className="btn btn-danger">RECHAZAR</button>
-                  </td>
-                </tr>
-              ))}
+                    <td>
+                      <AceptarModal cita={item} />
+                    </td>
+                    <td>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => rechazarTurno(item.id)}
+                      >
+                        RECHAZAR
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </table>

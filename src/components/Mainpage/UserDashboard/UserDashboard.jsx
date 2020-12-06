@@ -3,26 +3,35 @@ import axios from "axios";
 import moment from "moment";
 import BackgroundImage from "../../../assets/la-clinica-blur.png";
 import PagarModal from "../UserDashboard/PagarModal";
+import { getTurnosPaciente } from "../../../api/auth.js";
+import { isAuthenticated } from "../../../helpers/auth";
+import { getLocalStorage } from "../../../helpers/localStorage";
 
 function UserDashboard() {
-  const [reclamosPendientes, setReclamosPendientes] = useState([]);
+  const [userData, setUserData] = useState([]);
 
-  // // request de datos
-  // const getReclamosPendientes = () => {
-  //   axios
-  //     .get(`http://localhost:3001/api/reclamos/pendientes/30610252334`)
-  //     .then((res) => {
-  //       //console.log(res.data.payload);
-  //       setReclamosPendientes(res.data.payload);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  //console.log(isAuthenticated());
 
-  // useEffect(() => {
-  //   getReclamosPendientes();
-  // }, []);
+  // const res = getTurnosPaciente();
+
+  useEffect(() => {
+    const id = getLocalStorage("user").id;
+    getTurnosPaciente(id).then((res) => setUserData(res.data));
+  }, []);
+
+  let turnosProximos = userData.turnosProximos;
+
+  if (!turnosProximos) {
+    turnosProximos = [];
+  }
+
+  console.log(turnosProximos);
+
+  // const turnosProximos = userData.data.map((item) => {
+  //   return item.turnosProximos;
+  // });
+
+  // console.log(turnosProximos);
 
   const jsonData = [
     {
@@ -68,27 +77,29 @@ function UserDashboard() {
                 <th>N° CITA</th>
                 <th>FECHA</th>
                 <th>HORA</th>
-                <th>TRABAJO</th>
+                <th>SINTOMAS</th>
+                <th>PRESTACION</th>
                 <th>ESTADO DE PAGO</th>
                 <th>PAGAR</th>
                 <th>FACTURA</th>
               </tr>
             </thead>
             <tbody>
-              {jsonData.map((item) => (
-                <tr key={item.cita_id}>
-                  <td>{item.cita_id}</td>
+              {turnosProximos.map((item, index) => (
+                <tr key={item.id}>
+                  <td>{index}</td>
                   <td>{item.fecha}</td>
-                  <td>{item.hora} hs</td>
-                  <td>{item.trabajo}</td>
+                  <td>{item.horario} hs</td>
+                  <td>{item.observacion}</td>
+                  <td>{!item.prestacion ? "NO ASIGNADO" : item.prestacion}</td>
                   <td
                     className={
-                      item.estado_pago === "PAGADO"
+                      item.pago === "PAGADO"
                         ? "font-weight-bold text-success"
                         : "font-weight-bold text-danger"
                     }
                   >
-                    {item.estado_pago}
+                    {item.pago}
                   </td>
                   <td>
                     <PagarModal cita={item} />
@@ -96,7 +107,7 @@ function UserDashboard() {
                   <td>
                     <button
                       className="btn btn-warning"
-                      disabled={item.estado_pago === "PAGADO" ? false : true}
+                      disabled={item.pago === "PAGADO" ? false : true}
                     >
                       FACTURA
                     </button>

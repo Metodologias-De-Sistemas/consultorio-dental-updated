@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getCookie } from "../helpers/cookies";
+import moment from "moment";
 
 const baseUrl = "http://localhost:3001/api";
 
@@ -27,6 +28,9 @@ export const logearUsuario = async (credenciales) => {
   };
 
   const { data } = await axios.post(url, credenciales, config);
+
+  // console.log("USER DATA");
+  // console.log(data);
 
   return data;
 };
@@ -58,7 +62,7 @@ export const getTurnos = async () => {
   };
 
   const { data } = await axios.get(url, config);
-  console.log(data);
+  //console.log(data);
 
   return data;
 };
@@ -75,9 +79,54 @@ export const getPacientes = async () => {
   };
 
   const { data } = await axios.get(url, config);
+  //console.log(data);
+
+  return data;
+};
+
+export const getTurnosPaciente = async (id) => {
+  const token = getCookie("token");
+  const url = `${baseUrl}/pacientes/${id}`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const { data } = await axios.get(url, config);
   console.log(data);
 
   return data;
+};
+
+export const getFechasOcupadas = async () => {
+  const token = getCookie("token");
+  const url = `${baseUrl}/turnos/ocupados`;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let { data } = await axios.get(url, config);
+
+  //const date = ["2020-12-15", "2020-12-16"];
+
+  if (!data.data) {
+    data.data = [];
+  }
+
+  const parsedDates = data.data.map((item) => {
+    return moment(item).toDate();
+  });
+
+  //console.log(parsedDates);
+
+  return parsedDates;
 };
 
 export const borrarTurno = async (id) => {
@@ -112,7 +161,7 @@ export const editarTurno = async (id, obj) => {
   return data;
 };
 
-export const terminarTurno = async (id, text) => {
+export const terminarTurno = async (id) => {
   const token = getCookie("token");
   const url = `${baseUrl}/consultas`;
 
@@ -122,4 +171,10 @@ export const terminarTurno = async (id, text) => {
       "Content-Type": "application/json",
     },
   };
+
+  // falta implementar finalizar turno
+
+  const { data } = await axios.post(url, id, config);
+
+  return data;
 };

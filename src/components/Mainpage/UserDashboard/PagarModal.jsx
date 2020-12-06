@@ -2,21 +2,29 @@ import React, { useState } from "react";
 import moment from "moment";
 
 function PagarModal({ cita }) {
+  // const pagarTurno = () => {
+  //   const data = {
+  //     numTarjeta: tarjeta,
+  //     totalAPagar: precio,
+  //     turno: cita.id
+  //   }
+  // }
+
   return (
     <div>
       <div className="text-dark">
         <button
           type="button"
           className="btn btn-success"
-          disabled={cita.estado_pago === "PAGADO" ? true : false}
+          disabled={cita.pago === "PAGADO" ? true : false}
           data-toggle="modal"
-          data-target={`#modalDetalle-id${cita.cita_id}`}
+          data-target={`#modalDetalle-id${cita.id}`}
         >
           PAGAR
         </button>
 
         {/* <div className="modal" id={`modalDetalle-id${reclamo.ticket_id}`}> */}
-        <div className="modal" id={`modalDetalle-id${cita.cita_id}`}>
+        <div className="modal" id={`modalDetalle-id${cita.id}`}>
           <div className="modal-dialog modal-lg">
             <div className="modal-content">
               <div className="modal-header">

@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { editarTurno } from "../../../api/auth.js";
 import moment from "moment";
 
 function AceptarModal({ cita }) {
   const [prestacion, setPrestacion] = useState("");
 
-  const aceptarCita = () => {
+  const aceptarCita = async () => {
     console.log(prestacion + " " + cita.id);
+    const data = {
+      estado: "ACEPTADO",
+      prestacion: `${prestacion}`,
+    };
+
+    await editarTurno(cita.id, data);
+    window.location = "/admin/dashboard";
   };
 
   return (

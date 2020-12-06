@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import isEmail from 'validator/lib/isEmail';
-import isEmpty from 'validator/lib/isEmpty';
-import { showErrorMsg } from '../../../helpers/message';
-import { showLoading } from '../../../helpers/loading';
-import { logearUsuario } from '../../../api/auth';
-import { isAuthenticated, setAuthentication } from '../../../helpers/auth';
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import isEmail from "validator/lib/isEmail";
+import isEmpty from "validator/lib/isEmpty";
+import { showErrorMsg } from "../../../helpers/message";
+import { showLoading } from "../../../helpers/loading";
+import { logearUsuario } from "../../../api/auth";
+import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
 
 const Signin = () => {
   let history = useHistory();
 
   // creamos el estado del componente
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     errorMsg: false,
     loading: false,
   });
@@ -27,7 +27,7 @@ const Signin = () => {
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
-      errorMsg: '',
+      errorMsg: "",
     });
   };
 
@@ -38,12 +38,12 @@ const Signin = () => {
     if (isEmpty(email) || isEmpty(password)) {
       setFormData({
         ...formData,
-        errorMsg: 'Todos los campos son requeridos.',
+        errorMsg: "Todos los campos son requeridos.",
       });
     } else if (!isEmail(email)) {
       setFormData({
         ...formData,
-        errorMsg: 'Email invalido.',
+        errorMsg: "Email invalido.",
       });
     } else {
       const { email, password } = formData;
@@ -60,18 +60,19 @@ const Signin = () => {
           setAuthentication(response.token, {
             ...response.paciente,
             email: response.email,
+            id: response.id,
           });
           // si esta autenticado y es admin, se redirige al admin dashboard
           if (isAuthenticated() && isAuthenticated().rol === 1) {
-            console.log('Redirecting to admin dashboard');
-            history.push('/admin/dashboard');
+            console.log("Redirecting to admin dashboard");
+            history.push("/admin/dashboard");
           } else {
-            console.log('Redirecting to user dashboard/home/askDate'); // redirigimos al pedido de cita
-            history.push('/user/cita');
+            console.log("Redirecting to user dashboard/home/askDate"); // redirigimos al pedido de cita
+            history.push("/user/cita");
           }
         })
         .catch((err) => {
-          console.log('signin api function error', err);
+          console.log("signin api function error", err);
 
           setFormData({
             ...formData,

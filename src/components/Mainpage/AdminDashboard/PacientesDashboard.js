@@ -41,17 +41,21 @@ function PacientesDashboard() {
               </tr>
             </thead>
             <tbody>
-              {paciente.map((item, index) => (
-                <tr key={item.id}>
-                  <td>{index}</td>
-                  <td>{item.nombreCompleto}</td>
-                  <td>{item.DNI}</td>
-                  <td className="text-center">{item.edad}</td>
-                  <td>{item.email}</td>
-                  <td>{item.obraSocial}</td>
-                  <td>{/* <HistoriaClinicaModal cita={item} /> */}</td>
-                </tr>
-              ))}
+              {paciente
+                .sort((a, b) => a.nombreCompleto - b.nombreCompleto)
+                .map((item, index) => (
+                  <tr key={item.id}>
+                    <td>{index}</td>
+                    <td>{item.nombreCompleto}</td>
+                    <td>{item.DNI}</td>
+                    <td className="text-center">{item.edad}</td>
+                    <td>{item.email}</td>
+                    <td>{item.obraSocial}</td>
+                    <td>
+                      <HistoriaClinicaModal cita={item} />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </table>
