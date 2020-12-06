@@ -8,6 +8,7 @@ import { showErrorMsg, showSuccessMsg } from "../../../helpers/message";
 import { showLoading } from "../../../helpers/loading";
 import { crearTurno } from "../../../api/auth";
 import { isAuthenticated } from "../../../helpers/auth";
+import { getLocalStorage } from "../../../helpers/localStorage";
 
 // import "./Signup.css";
 
@@ -102,12 +103,38 @@ const Cita = () => {
     }
   };
 
-  const [imagen, setImagen] = useState("");
+  //console.log(getLocalStorage("user"));
 
-  const fileSelectedHandler = (e) => {
+  const [imagen, setImagen] = useState("");
+  const [imagenBase, setImagenBase] = useState("");
+
+  const fileSelectedHandler = async (e) => {
     setImagen(e.target.files[0]);
     console.log(e.target.files[0]);
     //console.log(e.target.files[0].name);
+    const file = e.target.files[0];
+    const base64 = await convertBase64(file);
+    console.log(base64);
+    setImagenBase(base64);
+  };
+
+  const convertBase64 = (file) => {
+    if (!file) {
+      return null;
+    } else {
+      return new Promise((resolve, reject) => {
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      });
+    }
   };
 
   /* 
@@ -324,6 +351,10 @@ const Cita = () => {
           <label className="custom-file-label" for="customFile">
             {nombreImagen}
           </label>
+        </div>
+
+        <div>
+          <img src={imagenBase} height="100px"></img>
         </div>
 
         {/* signup button */}

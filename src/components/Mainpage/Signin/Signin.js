@@ -61,6 +61,7 @@ const Signin = () => {
             ...response.paciente,
             email: response.email,
             id: response.id,
+            numDeTelefono: response.numDeTelefono,
           });
           // si esta autenticado y es admin, se redirige al admin dashboard
           if (isAuthenticated() && isAuthenticated().rol === 1) {
