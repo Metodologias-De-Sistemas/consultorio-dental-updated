@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import moment from "moment";
 import BackgroundImage from "../../../assets/la-clinica-blur.png";
 import PagarModal from "../UserDashboard/PagarModal";
 import { getTurnosPaciente } from "../../../api/auth.js";
-import { isAuthenticated } from "../../../helpers/auth";
 import { getLocalStorage } from "../../../helpers/localStorage";
 
 function UserDashboard() {
   const [userData, setUserData] = useState([]);
-
-  //console.log(isAuthenticated());
-
-  // const res = getTurnosPaciente();
 
   useEffect(() => {
     const id = getLocalStorage("user").id;
@@ -24,35 +18,6 @@ function UserDashboard() {
   if (!turnosProximos) {
     turnosProximos = [];
   }
-
-  console.log(turnosProximos);
-
-  // const turnosProximos = userData.data.map((item) => {
-  //   return item.turnosProximos;
-  // });
-
-  // console.log(turnosProximos);
-
-  const jsonData = [
-    {
-      cita_id: 1,
-      fecha: "10-12-2020",
-      hora: 6,
-      trabajo: "Limpieza Bocal",
-      estado_cita: "ACEPTADO",
-      estado_pago: "PAGADO",
-      pago_id: 1,
-    },
-    {
-      cita_id: 2,
-      fecha: "11-12-2020",
-      hora: 19,
-      trabajo: "Tratamiento de conducto",
-      estado_cita: "ACEPTADO",
-      estado_pago: "NO PAGADO",
-      pago_id: 2,
-    },
-  ];
 
   return (
     <div
@@ -88,7 +53,7 @@ function UserDashboard() {
               {turnosProximos.map((item, index) => (
                 <tr key={item.id}>
                   <td>{index}</td>
-                  <td>{item.fecha}</td>
+                  <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
                   <td>{item.horario} hs</td>
                   <td>{item.observacion}</td>
                   <td>{!item.prestacion ? "NO ASIGNADO" : item.prestacion}</td>

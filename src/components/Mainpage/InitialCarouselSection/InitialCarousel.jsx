@@ -8,10 +8,10 @@ const InitialCarousel = () => {
                     tratamientos de conducto, el trabajo de restauracion de
                     piezas dentales y el cuidado cosmetico.`;
 
-  const covidDescription = `Debido a la situacion generada por Covid-19, Sonrisa Feliz a
-                    establecido un estrictos protocolos de atencion al publico,
-                    para que puedas recibir el tratamiento que necestias con
-                    seguridad y la misma calidad de siempre.`;
+  // const covidDescription = `Debido a la situacion generada por Covid-19, Sonrisa Feliz a
+  //                   establecido un estrictos protocolos de atencion al publico,
+  //                   para que puedas recibir el tratamiento que necestias con
+  //                   seguridad y la misma calidad de siempre.`;
 
   return (
     <>

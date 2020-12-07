@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 import isEmpty from "validator/lib/isEmpty";
 import equals from "validator/lib/equals";
-import { showErrorMsg, showSuccessMsg } from "../../../helpers/message";
 import { showLoading } from "../../../helpers/loading";
-import { crearTurno } from "../../../api/auth";
+import { crearTurno, getFechasOcupadas } from "../../../api/auth";
 import { isAuthenticated } from "../../../helpers/auth";
-import { getLocalStorage } from "../../../helpers/localStorage";
 
 // import "./Signup.css";
 
+toast.configure();
 const Cita = () => {
   const [formData, setFormData] = useState({
     dpfecha: null,
@@ -21,6 +22,10 @@ const Cita = () => {
     errorMsg: false,
     loading: false,
   });
+
+  const [imagen, setImagen] = useState("");
+  const [imagenBase, setImagenBase] = useState("");
+  const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
   // destructuramos el estado
   const {
@@ -43,78 +48,13 @@ const Cita = () => {
     });
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-
-    const { fecha, observacion, horario } = formData;
-
-    const strDate = moment(fecha).format("YYYY-MM-DD");
-    //Client side validation
-    if (
-      equals(strDate, "Invalid date") ||
-      isEmpty(observacion) ||
-      isEmpty(horario)
-    ) {
-      setFormData({
-        ...formData,
-        errorMsg: "Todos los campos son requeridos.",
-      });
-    } else {
-      // preparacion de estados a mandar al backend
-
-      // datos a manadar al backend
-      const data = {
-        fecha: strDate,
-        observacion,
-        horario,
-      };
-
-      setFormData({
-        ...formData,
-        loading: true,
-      });
-
-      // http method request from api/auth.js
-      crearTurno(data)
-        .then((response) => {
-          console.log("Axios signup success: ", response);
-          setFormData({
-            fecha: null,
-            observacion: "",
-            horario: "",
-            loading: false,
-            successMsg: response.data.successMessage, //successMessage es un mensaje que viene desde el backend
-          });
-
-          setTimeout(() => {
-            setFormData({
-              successMsg: null, //successMessage es un mensaje que viene desde el backend
-            });
-          }, 4000);
-        })
-        .catch((err) => {
-          console.log("Axios signup error: ", err);
-          setFormData({
-            ...formData,
-            loading: false,
-            errorMsg: err.response.data.errorMessage,
-          });
-        });
-    }
-  };
-
-  //console.log(getLocalStorage("user"));
-
-  const [imagen, setImagen] = useState("");
-  const [imagenBase, setImagenBase] = useState("");
+  //#region Subir Imagen Handlers
 
   const fileSelectedHandler = async (e) => {
     setImagen(e.target.files[0]);
-    console.log(e.target.files[0]);
-    //console.log(e.target.files[0].name);
+
     const file = e.target.files[0];
     const base64 = await convertBase64(file);
-    console.log(base64);
     setImagenBase(base64);
   };
 
@@ -137,16 +77,100 @@ const Cita = () => {
     }
   };
 
-  /* 
-    Lo que devuelve el isAuthenticated()
-    DNI: "37070698"
-    edad: 28
-    email: "sara.elizabeth.ford23@gmail.com"
-    fechaNacimiento: "23-11-1992"
-    nombreCompleto: "Sara Elizabeth Ford"
-    obraSocial: "INSSSEP"
-    rol: 0
-  */
+  //#endregion
+
+  useEffect(() => {
+    getFechasOcupadas()
+      .then((res) => setFechasOcupadas(res))
+      .catch(console.error);
+  }, []);
+
+  //console.log(fechasOcupadas);
+
+  const notify = (estado, mensaje) => {
+    if (estado === "SUCCESS") {
+      toast.success(mensaje, {
+        autoClose: 10000,
+        toastId: "success",
+        className: "toast-margin",
+      });
+    } else if (estado === "ERROR") {
+      toast.error(mensaje, {
+        autoClose: 10000,
+        toastId: "error",
+        className: "toast-margin",
+      });
+    }
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    const { fecha, observacion, horario } = formData;
+
+    const strDate = moment(dpfecha).format("YYYY-MM-DD");
+    //Client side validation
+    if (
+      equals(strDate, "Invalid date") ||
+      isEmpty(observacion) ||
+      isEmpty(horario)
+    ) {
+      setFormData({
+        ...formData,
+        errorMsg: "Todos los campos son requeridos.",
+      });
+
+      notify("ERROR", "¡Datos Incompletos!");
+    } else {
+      // preparacion de estados a mandar al backend
+
+      // datos a manadar al backend
+      const data = {
+        fecha: strDate,
+        observacion,
+        horario,
+        foto: imagenBase,
+      };
+
+      setFormData({
+        ...formData,
+        loading: true,
+      });
+
+      // http method request from api/auth.js
+      crearTurno(data)
+        .then((response) => {
+          console.log("Axios signup success: ", response);
+          setFormData({
+            fecha: null,
+            observacion: "",
+            horario: "",
+            loading: false,
+            successMsg: response.data.successMessage, //successMessage es un mensaje que viene desde el backend
+          });
+
+          setImagenBase("");
+          setImagen("");
+
+          notify("SUCCESS", "¡Turno Creado!");
+
+          setTimeout(() => {
+            setFormData({
+              successMsg: null, //successMessage es un mensaje que viene desde el backend
+            });
+          }, 4000);
+        })
+        .catch((err) => {
+          console.log("Axios signup error: ", err);
+          setFormData({
+            ...formData,
+            loading: false,
+            errorMsg: err.response.data.errorMessage,
+          });
+        });
+    }
+  };
+
   let nombreImagen = null;
 
   if (imagen === "") {
@@ -163,6 +187,9 @@ const Cita = () => {
   const showSignupForm = () => (
     <>
       <form className="signup-form" onSubmit={handleSubmit} noValidate>
+        <h3 className="text-center">TUS DATOS</h3>
+        <hr className="w-25 border border-primary" />
+
         {/* Nombre Completo */}
         <div className="form-group input-group">
           <div className="input-group-prepend">
@@ -176,7 +203,7 @@ const Cita = () => {
             className="form-control"
             placeholder="Nombre Completo"
             type="text"
-            disabled="true"
+            disabled={true}
           />
         </div>
         {/* email */}
@@ -192,7 +219,7 @@ const Cita = () => {
             className="form-control"
             placeholder="Email"
             type="email"
-            disabled="true"
+            disabled={true}
           />
         </div>
 
@@ -209,7 +236,7 @@ const Cita = () => {
             className="form-control"
             placeholder="Fecha de Nacimiento"
             type="text"
-            disabled="true"
+            disabled={true}
           />
         </div>
 
@@ -227,7 +254,7 @@ const Cita = () => {
             placeholder="D.N.I"
             type="text"
             maxLength="8"
-            disabled="true"
+            disabled={true}
           />
         </div>
 
@@ -244,7 +271,7 @@ const Cita = () => {
             className="form-control"
             placeholder="Numero de Telefono"
             type="text"
-            disabled="true"
+            disabled={true}
           />
         </div>
 
@@ -261,17 +288,16 @@ const Cita = () => {
             className="form-control"
             placeholder="Obra Social"
             type="text"
-            readonly
-            disabled="true"
+            disabled={true}
           />
         </div>
 
         <hr className="w-100 border border-primary" />
+        <br />
 
         <h3 className="text-center">COMPLETAR LOS DATOS</h3>
         <hr className="w-50 border border-primary" />
 
-        <br />
         {/* horario*/}
         <div className="form-group input-group">
           <div className="input-group-prepend ">
@@ -298,7 +324,7 @@ const Cita = () => {
         </div>
 
         {/* Date Picker fecha cita*/}
-        <div className="form-group input-group">
+        <div className="form-group input-group" style={{ zIndex: 3 }}>
           <div className="input-group-prepend ">
             <span className="input-group-text">
               <i className="fas fa-calendar-alt"></i>
@@ -319,6 +345,7 @@ const Cita = () => {
             showYearDropdown
             dropdownMode="select"
             filterDate={(date) => date.getDay() !== 6 && date.getDay() !== 0}
+            excludeDates={fechasOcupadas}
           />
         </div>
 
@@ -348,13 +375,13 @@ const Cita = () => {
             id="customFile"
             onChange={fileSelectedHandler}
           />
-          <label className="custom-file-label" for="customFile">
+          <label className="custom-file-label" htmlFor="customFile">
             {nombreImagen}
           </label>
         </div>
 
         <div>
-          <img src={imagenBase} height="100px"></img>
+          <img src={imagenBase} height="100px" alt=""></img>
         </div>
 
         {/* signup button */}
@@ -382,8 +409,8 @@ const Cita = () => {
     <div className="signup-container container-fluid">
       <div className="row px-3 py-3">
         <div className="col-md-5 mx-auto align-self-center">
-          {successMsg && showSuccessMsg(successMsg)}
-          {errorMsg && showErrorMsg(errorMsg)}
+          {/* {successMsg && showSuccessMsg(successMsg)}
+          {errorMsg && showErrorMsg(errorMsg)} */}
           {showSignupForm()}
           {loading && showLoading()}
         </div>

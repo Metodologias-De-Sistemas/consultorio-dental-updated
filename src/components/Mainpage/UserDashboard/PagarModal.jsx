@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import moment from "moment";
+import { pagarTurno } from "../../../api/auth.js";
+
+// import moment from "moment";
 
 function PagarModal({ cita }) {
-  // const pagarTurno = () => {
-  //   const data = {
-  //     numTarjeta: tarjeta,
-  //     totalAPagar: precio,
-  //     turno: cita.id
-  //   }
-  // }
+  const [tarjeta, setTarjeta] = useState("");
+
+  const pagarTurnoHandler = () => {
+    const data = {
+      numTarjeta: tarjeta,
+      prestacion: cita.prestacion,
+      totalAPagar: 600,
+      turnoId: cita.id,
+    };
+
+    pagarTurno(data)
+      .then((res) => console.log(res))
+      .catch(console.error);
+
+    window.location = "/user/dashboard";
+  };
 
   return (
     <div>
@@ -62,6 +73,8 @@ function PagarModal({ cita }) {
                           placeholder="Número de tarjeta valido"
                           className="form-control "
                           required
+                          value={tarjeta}
+                          onChange={(e) => setTarjeta(e.target.value)}
                         />
                         <div className="input-group-append">
                           <span className="input-group-text text-muted">
@@ -119,6 +132,7 @@ function PagarModal({ cita }) {
                       <button
                         type="button"
                         className="btn btn-success btn-block"
+                        onClick={() => pagarTurnoHandler()}
                       >
                         PAGAR - $600
                       </button>

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import NavbarItem from "./NavbarItem";
 import { useHistory } from "react-router-dom";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { isAuthenticated, logout } from "../../../helpers/auth";
 
 const NavbarList = () => {

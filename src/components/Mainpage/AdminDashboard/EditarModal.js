@@ -9,14 +9,11 @@ function EditarModal({ cita }) {
   const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
   const editarCita = async () => {
-    // logica de editar fecha
     if (horario === "") {
       console.log("Datos incompletos!");
     } else if (fecha === "") {
       console.log("Datos incompletos!");
     } else {
-      // ahora editar fecha.
-      //console.log(moment(fecha).format("YYYY-MM-DD") + " " + horario);
       const data = {
         fecha: moment(fecha).format("YYYY-MM-DD"),
         horario: horario,

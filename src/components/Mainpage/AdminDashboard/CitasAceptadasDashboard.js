@@ -12,14 +12,17 @@ function CitasAceptadasDashboard() {
         const turnoPendientes = response.data.filter(
           (turno) => turno.estado === "ACEPTADO"
         );
-        console.log(turnoPendientes);
         setTurnos(turnoPendientes);
       })
       .catch((err) => console.error(err));
   }, []);
 
   const finalizarTurno = (id) => {
-    terminarTurno(id)
+    const data = {
+      turnoId: id,
+    };
+
+    terminarTurno(data)
       .then((res) => console.log(res))
       .catch(console.error);
 
@@ -59,7 +62,7 @@ function CitasAceptadasDashboard() {
                 .map((item, index) => (
                   <tr key={item.id}>
                     <td>{index}</td>
-                    <td>{/* {item.paciente.nombreCompleto} */}</td>
+                    <td>{item.paciente.nombreCompleto}</td>
                     <td>{moment(item.fecha).format("DD-MM-YYYY")}</td>
                     <td>
                       {item.horario >= 12
@@ -68,12 +71,22 @@ function CitasAceptadasDashboard() {
                       hs
                     </td>
                     <td>{item.prestacion}</td>
-                    <td>PAGADO</td>
-                    <td>{/* <DetalleModal cita={item} /> */}</td>
+                    <td
+                      className={
+                        item.pago === "PAGADO"
+                          ? "font-weight-bold text-success"
+                          : "font-weight-bold text-danger"
+                      }
+                    >
+                      {item.pago}
+                    </td>
+                    <td>
+                      <DetalleModal cita={item} />
+                    </td>
                     <td>
                       <button
                         className="btn btn-primary"
-                        // onClick={(e) => window.open("https://twitter.com/home")} // abro una nueva ventana con el link de la imagen.
+                        onClick={(e) => window.open(`${item.urlFoto}`)} // abro una nueva ventana con el link de la imagen.
                       >
                         IMAGEN
                       </button>

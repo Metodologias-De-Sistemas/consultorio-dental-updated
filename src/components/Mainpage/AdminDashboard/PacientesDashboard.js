@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import { getPacientes } from "../../../api/auth.js";
 import HistoriaClinicaModal from "./HistoriaClinicaModal";
 
@@ -9,7 +8,7 @@ function PacientesDashboard() {
   useEffect(() => {
     getPacientes()
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setPaciente(response.data);
       })
       .catch((err) => console.error(err));

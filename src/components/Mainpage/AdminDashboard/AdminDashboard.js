@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import moment from "moment";
-import BackgroundImage from "../../../assets/la-clinica-blur.png";
-import BackgroundImage2 from "../../../assets/plus.svg";
 import { getTurnos, borrarTurno } from "../../../api/auth.js";
 import DetalleModal from "./DetallesModal";
 import AceptarModal from "./AceptarModal";
 import EditarModal from "./EditarModal";
-import muelita from "../../../assets/muelita.svg";
 
 function AdminDashboard() {
   const [turnos, setTurnos] = useState([]);
@@ -19,7 +15,6 @@ function AdminDashboard() {
         const turnoPendientes = response.data.filter(
           (turno) => turno.estado === "PENDIENTE"
         );
-        //console.log(turnoPendientes);
         setTurnos(turnoPendientes);
       })
       .catch((err) => console.error(err));
@@ -27,7 +22,6 @@ function AdminDashboard() {
 
   // borrar turno
   const rechazarTurno = async (id) => {
-    console.log(id);
     await borrarTurno(id);
     window.location = "/admin/dashboard";
   };
@@ -79,7 +73,7 @@ function AdminDashboard() {
                     <td>
                       <button
                         className="btn btn-primary"
-                        // onClick={(e) => window.open("https://twitter.com/home")} // abro una nueva ventana con el link de la imagen.
+                        onClick={(e) => window.open(`${item.urlFoto}`)} // abro una nueva ventana con el link de la imagen.
                       >
                         IMAGEN
                       </button>

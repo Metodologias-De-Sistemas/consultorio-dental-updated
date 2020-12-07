@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
+import moment from "moment";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "./HistoriaClinicaPDF";
 
 function HistoriaClinicaModal({ cita }) {
+  //const componentRef = useRef();
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <div>
       <div className="text-dark">
@@ -52,37 +62,34 @@ function HistoriaClinicaModal({ cita }) {
                   <b>HISTORIA CLINICA</b>
                 </h5>
                 <br />
-                {/* Todas las citas de la id del paciente que esten con estado PAGADO */}
                 {cita.historiaClinica.map((item, index) => (
                   <div className="card mb-2 border border-dark" key={index}>
                     <div className="card-body">
                       <h5 className="card-title">CITA N° {index}</h5>
                       <hr className="w-100 border border-dark" />
-                      {/* <p className="card-text">
-                    Some quick example text to build on the card title and
-                    make up the bulk of the card's content.
-                  </p> */}
+
                       <div className="row">
                         <div className="col-6">
                           <p style={{ fontWeight: "400" }}>
-                            <b>FECHA: </b> 22/12/2020
+                            <b>FECHA: </b>
+                            {moment(item.fecha).format("DD-MM-YYYY")}
                           </p>
                         </div>
                         <div className="col-6">
                           <p style={{ fontWeight: "400" }}>
-                            <b>HORA: </b> 8hs
+                            <b>HORA: </b> {item.horario} hs
                           </p>
                         </div>
                       </div>
                       <div className="row">
                         <div className="col-6">
                           <p style={{ fontWeight: "400" }}>
-                            <b>SINTOMAS: </b> Me duele la muela.
+                            <b>SINTOMAS: </b> {item.sintomas}
                           </p>
                         </div>
                         <div className="col-6">
                           <p style={{ fontWeight: "400" }}>
-                            <b>PRESTACION: </b> Extraccion de Muela.
+                            <b>PRESTACION: </b> {item.prestacion}
                           </p>
                         </div>
                       </div>
@@ -95,10 +102,13 @@ function HistoriaClinicaModal({ cita }) {
                 <button
                   type="button"
                   className="btn btn-warning mr-auto"
-                  data-dismiss="modal"
+                  onClick={handlePrint}
                 >
                   DESCARGAR
                 </button>
+                <div style={{ display: "none" }}>
+                  <ComponentToPrint ref={componentRef} cita={cita} />
+                </div>
                 <button
                   type="button"
                   className="btn btn-primary"
