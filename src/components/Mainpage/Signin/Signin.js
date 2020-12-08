@@ -6,6 +6,9 @@ import { showErrorMsg } from "../../../helpers/message";
 import { showLoading } from "../../../helpers/loading";
 import { logearUsuario } from "../../../api/auth";
 import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
+import { toast } from "react-toastify";
+
+toast.configure();
 
 const Signin = () => {
   let history = useHistory();
@@ -17,6 +20,22 @@ const Signin = () => {
     errorMsg: false,
     loading: false,
   });
+
+  const notify = (estado, mensaje) => {
+    if (estado === "SUCCESS") {
+      toast.success(mensaje, {
+        autoClose: 10000,
+        toastId: "success",
+        className: "toast-margin",
+      });
+    } else if (estado === "ERROR") {
+      toast.error(mensaje, {
+        autoClose: 10000,
+        toastId: "error",
+        className: "toast-margin",
+      });
+    }
+  };
 
   // destructuramos el estado
   const { email, password, errorMsg, loading } = formData;
@@ -36,15 +55,9 @@ const Signin = () => {
 
     //client side validation
     if (isEmpty(email) || isEmpty(password)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Todos los campos son requeridos.",
-      });
+      notify("ERROR", "¡Todos los campos son requeridos!");
     } else if (!isEmail(email)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Email invalido.",
-      });
+      notify("ERROR", "¡Email Invalido!");
     } else {
       const { email, password } = formData;
       const data = { email, password };
@@ -65,10 +78,10 @@ const Signin = () => {
           });
           // si esta autenticado y es admin, se redirige al admin dashboard
           if (isAuthenticated() && isAuthenticated().rol === 1) {
-            console.log("Redirecting to admin dashboard");
+            //console.log("Redirecting to admin dashboard");
             history.push("/admin/dashboard");
           } else {
-            console.log("Redirecting to user dashboard/home/askDate"); // redirigimos al pedido de cita
+            //console.log("Redirecting to user dashboard/home/askDate"); // redirigimos al pedido de cita
             history.push("/user/cita");
           }
         })
@@ -80,6 +93,8 @@ const Signin = () => {
             loading: false,
             errorMsg: err.msg,
           });
+
+          notify("ERROR", "¡El Email o Contraseña son incorrectos!");
         });
     }
   };
@@ -137,7 +152,7 @@ const Signin = () => {
     <div className="signup-container container-fluid">
       <div className="row px-3 vh-100">
         <div className="col-md-5 mx-auto align-self-center">
-          {errorMsg && showErrorMsg(errorMsg)}
+          {/* {errorMsg && showErrorMsg(errorMsg)} */}
           {showSigninForm()}
           {/* {JSON.stringify(formData)} */}
           {loading && showLoading()}

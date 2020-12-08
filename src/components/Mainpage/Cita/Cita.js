@@ -379,10 +379,10 @@ const Cita = () => {
             {nombreImagen}
           </label>
         </div>
-
+        {/* 
         <div>
           <img src={imagenBase} height="100px" alt=""></img>
-        </div>
+        </div> */}
 
         {/* signup button */}
         <div className="form-group">

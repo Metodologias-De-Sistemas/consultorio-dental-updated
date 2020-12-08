@@ -11,6 +11,9 @@ import { showLoading } from "../../../helpers/loading";
 import { registrarUsuario } from "../../../api/auth";
 import "./Signup.css";
 import { isAuthenticated } from "../../../helpers/auth";
+import { toast } from "react-toastify";
+
+toast.configure();
 
 const Signup = () => {
   let history = useHistory();
@@ -22,6 +25,22 @@ const Signup = () => {
       history.push("/user/cita");
     }
   }, [history]);
+
+  const notify = (estado, mensaje) => {
+    if (estado === "SUCCESS") {
+      toast.success(mensaje, {
+        autoClose: 10000,
+        toastId: "success",
+        className: "toast-margin",
+      });
+    } else if (estado === "ERROR") {
+      toast.error(mensaje, {
+        autoClose: 10000,
+        toastId: "error",
+        className: "toast-margin",
+      });
+    }
+  };
 
   // creamos el estado del componente
   const [formData, setFormData] = useState({
@@ -81,20 +100,17 @@ const Signup = () => {
       isEmpty(numDeTelefono) ||
       isEmpty(obraSocial)
     ) {
-      setFormData({
-        ...formData,
-        errorMsg: "Todos los campos son requeridos.",
-      });
+      notify("ERROR", "¡Todos los campos son requeridos!");
     } else if (!isEmail(email)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Email invalido.",
-      });
+      notify("ERROR", "¡Email Invalido!");
     } else if (!equals(password, password2)) {
-      setFormData({
-        ...formData,
-        errorMsg: "Las contraseñas no coinciden.",
-      });
+      notify("ERROR", "¡Las contraseñas no coinciden!");
+    } else if (
+      /[qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM!@#$%^&*(),.?":{}|<>]/i.test(
+        DNI
+      )
+    ) {
+      notify("ERROR", "¡El D.N.I posee caracteres!");
     } else {
       // preparacion de estados a mandar al backend
       const {
@@ -125,7 +141,7 @@ const Signup = () => {
       // http method request from api/auth.js
       registrarUsuario(data)
         .then((response) => {
-          console.log("Axios signup success: ", response);
+          //console.log("Axios signup success: ", response);
           setFormData({
             nombreCompleto: "",
             fechaNacimiento: "",
@@ -139,11 +155,7 @@ const Signup = () => {
             successMsg: response.successMessage, //successMessage es un mensaje que viene desde el backend
           });
 
-          setTimeout(() => {
-            setFormData({
-              successMsg: null, //successMessage es un mensaje que viene desde el backend
-            });
-          }, 4000);
+          notify("SUCCESS", "¡Usuario Registrado exitosamente!");
         })
         .catch((err) => {
           console.log("Axios signup error: ", err);
@@ -152,6 +164,7 @@ const Signup = () => {
             loading: false,
             errorMsg: err.msg,
           });
+          notify("ERROR", "¡Hubo un error al registrar el usuario!");
         });
     }
   };
@@ -320,8 +333,8 @@ const Signup = () => {
     <div className="signup-container container-fluid">
       <div className="row px-3 vh-100">
         <div className="col-md-5 mx-auto align-self-center">
-          {successMsg && showSuccessMsg(successMsg)}
-          {errorMsg && showErrorMsg(errorMsg)}
+          {/* {successMsg && showSuccessMsg(successMsg)}
+          {errorMsg && showErrorMsg(errorMsg)} */}
           {showSignupForm()}
           {/* {JSON.stringify(formData)} */}
           {/* {JSON.stringify(formData.fechaNacimiento)}
