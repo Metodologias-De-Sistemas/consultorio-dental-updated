@@ -153,12 +153,6 @@ const Cita = () => {
           setImagen("");
 
           notify("SUCCESS", "¡Turno Creado!");
-
-          setTimeout(() => {
-            setFormData({
-              successMsg: null, //successMessage es un mensaje que viene desde el backend
-            });
-          }, 4000);
         })
         .catch((err) => {
           console.log("Axios signup error: ", err);
@@ -167,6 +161,7 @@ const Cita = () => {
             loading: false,
             errorMsg: err.response.data.errorMessage,
           });
+          notify("ERROR", "La fecha y horario elegido ya se encuentra ocupado");
         });
     }
   };

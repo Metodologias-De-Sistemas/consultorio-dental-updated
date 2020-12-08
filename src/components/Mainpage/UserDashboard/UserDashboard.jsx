@@ -32,7 +32,7 @@ function UserDashboard() {
       <h1 className="px-5 pt-5">CITAS</h1>
 
       <div
-        className="mx-5  my-3 px-5 py-5 rounded border border-warning "
+        className="mx-5  my-3 px-5 pt-5 rounded border border-warning "
         style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
       >
         <table className="table-responsive">
@@ -46,7 +46,6 @@ function UserDashboard() {
                 <th>PRESTACION</th>
                 <th>ESTADO DE PAGO</th>
                 <th>PAGAR</th>
-                <th>FACTURA</th>
               </tr>
             </thead>
             <tbody>
@@ -69,18 +68,14 @@ function UserDashboard() {
                   <td>
                     <PagarModal cita={item} />
                   </td>
-                  <td>
-                    <button
-                      className="btn btn-warning"
-                      disabled={item.pago === "PAGADO" ? false : true}
-                    >
-                      FACTURA
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <p className="mt-5 text-white">
+            * Cuando realize el pago de la consulta, recibira un email con el
+            comprobante de pago.
+          </p>
         </table>
       </div>
     </div>

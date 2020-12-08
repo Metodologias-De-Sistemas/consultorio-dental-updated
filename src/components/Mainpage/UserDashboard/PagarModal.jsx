@@ -1,10 +1,28 @@
 import React, { useState } from "react";
 import { pagarTurno } from "../../../api/auth.js";
+import { toast } from "react-toastify";
 
 // import moment from "moment";
 
+toast.configure();
 function PagarModal({ cita }) {
   const [tarjeta, setTarjeta] = useState("");
+
+  const notify = (estado, mensaje) => {
+    if (estado === "SUCCESS") {
+      toast.success(mensaje, {
+        autoClose: 10000,
+        toastId: "success",
+        className: "toast-margin",
+      });
+    } else if (estado === "ERROR") {
+      toast.error(mensaje, {
+        autoClose: 10000,
+        toastId: "error",
+        className: "toast-margin",
+      });
+    }
+  };
 
   const pagarTurnoHandler = () => {
     const data = {
