@@ -73,7 +73,7 @@ function UserDashboard() {
             </tbody>
           </table>
           <p className="mt-5 text-white">
-            * Cuando realize el pago de la consulta, recibira un email con el
+            * Cuando realice el pago de la consulta, recibira un email con el
             comprobante de pago.
           </p>
         </table>
