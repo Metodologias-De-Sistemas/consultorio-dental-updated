@@ -13,6 +13,8 @@ function UserDashboard() {
     getTurnosPaciente(id).then((res) => setUserData(res.data));
   }, []);
 
+  console.log(userData);
+
   let turnosProximos = userData.turnosProximos;
 
   if (!turnosProximos) {

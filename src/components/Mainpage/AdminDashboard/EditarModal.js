@@ -78,9 +78,9 @@ function EditarModal({ cita }) {
                     <option value="9">MAÑANA | 09:00hs - 10:00hs </option>
                     <option value="10">MAÑANA | 10:00hs - 11:00hs </option>
                     <option value="11">MAÑANA | 11:00hs - 12:00hs </option>
-                    <option value="16">TARDE᲼᲼᲼ | 16:00hs - 17:00hs </option>
-                    <option value="17">TARDE᲼᲼᲼ | 17:00hs - 18:00hs </option>
-                    <option value="18">TARDE᲼᲼᲼ | 18:00hs - 19:00hs </option>
+                    <option value="16">TARDE᲼| 16:00hs - 17:00hs </option>
+                    <option value="17">TARDE᲼| 17:00hs - 18:00hs </option>
+                    <option value="18">TARDE᲼| 18:00hs - 19:00hs </option>
                   </select>
                 </div>
 
@@ -106,7 +106,7 @@ function EditarModal({ cita }) {
                     excludeDates={fechasOcupadas}
                   />
                 </div>
-                {moment(fecha).format("DD-MM-YYYY") + " " + horario}
+                {/* {moment(fecha).format("DD-MM-YYYY") + " " + horario} */}
               </div>
 
               <div className="modal-footer">

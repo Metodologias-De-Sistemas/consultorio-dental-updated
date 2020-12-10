@@ -45,7 +45,9 @@ function PagarModal({ cita }) {
         <button
           type="button"
           className="btn btn-success"
-          disabled={cita.pago === "PAGADO" ? true : false}
+          disabled={
+            cita.pago === "PAGADO" || cita.estado === "PENDIENTE" ? true : false
+          }
           data-toggle="modal"
           data-target={`#modalDetalle-id${cita.id}`}
         >
