@@ -1,19 +1,18 @@
 import React from "react";
 import NavbarList from "./NavbarList";
 import { withRouter, Link } from "react-router-dom";
+// Habia un bug que no mostraba el navbar brand cuando estabamos en alguna pantalla como usuario. Habia que importar como componente la imagen.
+import muelita from "../../../assets/muelita.svg";
 
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+      <nav
+        className="navbar sticky-top navbar-expand-lg navbar-light backgroundNavbar"
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.92)" }}
+      >
         <Link className="navbar-brand" to="/">
-          <img
-            src="images/Logo sonrisa feliz.png"
-            width="%100"
-            height="45"
-            alt=""
-          />
-          SONRISA FELIZ
+          <img src={muelita} width="%100" height="40" alt="" /> SONRISA FELIZ
         </Link>
 
         <button

@@ -1,6 +1,6 @@
 .signup-container {
   background-image: url("../../../assets/la-clinica-blur.png");
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-position: center;
 
   /* filter: blur(8px);

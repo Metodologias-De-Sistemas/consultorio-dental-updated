@@ -1,39 +1,42 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { getTurnos, borrarTurno } from "../../../api/auth.js";
+import { getTurnos, terminarTurno } from "../../../api/auth.js";
 import DetalleModal from "./DetallesModal";
-import AceptarModal from "./AceptarModal";
-import EditarModal from "./EditarModal";
 
-function AdminDashboard() {
+function CitasAceptadasDashboard() {
   const [turnos, setTurnos] = useState([]);
 
-  // mostrar turnos PENDIENTE
   useEffect(() => {
     getTurnos()
       .then((response) => {
         const turnoPendientes = response.data.filter(
-          (turno) => turno.estado === "PENDIENTE"
+          (turno) => turno.estado === "ACEPTADO"
         );
         setTurnos(turnoPendientes);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  // borrar turno
-  const rechazarTurno = async (id) => {
-    await borrarTurno(id);
-    window.location = "/admin/dashboard";
+  const finalizarTurno = (id) => {
+    const data = {
+      turnoId: id,
+    };
+
+    terminarTurno(data)
+      .then((res) => console.log(res))
+      .catch(console.error);
+
+    window.location = "/admin/aceptados";
   };
 
   return (
     <div className="backgroundAdmin">
-      <h1 className="py-5 backgroundAdminTitle text-white border-bottom border-primary borderCustom-10 text-center">
-        CITAS PENDIENTES
+      <h1 className="py-5 backgroundAdminTitle text-white border-bottom border-warning borderCustom-10 text-center">
+        CITAS ACEPTADAS
       </h1>
 
       <div
-        className="mx-5 my-3 px-3 pt-4 rounded border border-primary "
+        className="mx-5 my-3 px-3 pt-4 rounded border border-warning "
         style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
       >
         <table className="table-responsive ">
@@ -44,11 +47,11 @@ function AdminDashboard() {
                 <th style={{ width: "10%" }}>NOMBRE</th>
                 <th style={{ width: "8%" }}>FECHA</th>
                 <th style={{ width: "8%" }}>HORA</th>
+                <th style={{ width: "12%" }}>PRESTACION</th>
+                <th style={{ width: "8%" }}>ESTADO DE PAGO</th>
                 <th style={{ width: "8%" }}>DETALLES</th>
                 <th style={{ width: "8%" }}>IMAGEN</th>
-                <th style={{ width: "7%" }}>EDITAR</th>
-                <th style={{ width: "6%" }}>ACEPTAR</th>
-                <th style={{ width: "6%" }}>RECHAZAR</th>
+                <th style={{ width: "8%" }}>FINALIZAR</th>
               </tr>
             </thead>
             <tbody>
@@ -67,6 +70,16 @@ function AdminDashboard() {
                         : item.horario + "am"}{" "}
                       hs
                     </td>
+                    <td>{item.prestacion}</td>
+                    <td
+                      className={
+                        item.pago === "PAGADO"
+                          ? "font-weight-bold text-success"
+                          : "font-weight-bold text-danger"
+                      }
+                    >
+                      {item.pago}
+                    </td>
                     <td>
                       <DetalleModal cita={item} />
                     </td>
@@ -79,18 +92,11 @@ function AdminDashboard() {
                       </button>
                     </td>
                     <td>
-                      <EditarModal cita={item} />
-                    </td>
-
-                    <td>
-                      <AceptarModal cita={item} />
-                    </td>
-                    <td>
                       <button
-                        className="btn btn-danger"
-                        onClick={() => rechazarTurno(item.id)}
+                        className="btn btn-success"
+                        onClick={() => finalizarTurno(item.id)}
                       >
-                        RECHAZAR
+                        FINALIZAR
                       </button>
                     </td>
                   </tr>
@@ -103,4 +109,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default CitasAceptadasDashboard;

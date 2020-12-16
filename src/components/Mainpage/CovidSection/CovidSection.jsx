@@ -1,5 +1,5 @@
-import React from 'react';
-import CarouselDescription from '../InitialCarouselSection/CarouselDescription';
+import React from "react";
+import CarouselDescription from "../InitialCarouselSection/CarouselDescription";
 
 const CovidSection = () => {
   const covidDescription = `Debido a la situacion actual de Covid-19, la Dra. Elizabeth
@@ -38,15 +38,15 @@ const CovidSection = () => {
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 highlight-covid-gif rounded-left-background-covid gifs-column">
               <div className="row">
                 <div className="col col12-gif d-flex justify-content-center align-items-center">
-                  <img src="images/covid_2.gif" alt="" class="gif-1" />
-                  <img src="images/covid_1.gif" alt="" class="gif-2" />
+                  <img src="images/covid_2.gif" alt="" className="gif-1" />
+                  <img src="images/covid_1.gif" alt="" className="gif-2" />
                 </div>
               </div>
 
               <div className="row">
                 <div className="col d-flex justify-content-center align-items-center">
-                  <img src="images/covid_1.gif" alt="" class="gif-3" />
-                  <img src="images/covid_3.gif" alt="" class="gif-4" />
+                  <img src="images/covid_1.gif" alt="" className="gif-3" />
+                  <img src="images/covid_3.gif" alt="" className="gif-4" />
                 </div>
               </div>
             </div>

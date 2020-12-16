@@ -1,38 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Moment from 'moment';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import isEmail from 'validator/lib/isEmail';
-import isEmpty from 'validator/lib/isEmpty';
-import equals from 'validator/lib/equals';
-import { showErrorMsg, showSuccessMsg } from '../../../helpers/message';
-import { showLoading } from '../../../helpers/loading';
-import { registrarUsuario } from '../../../api/auth';
-import './Signup.css';
-import { isAuthenticated } from '../../../helpers/auth';
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import Moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import isEmail from "validator/lib/isEmail";
+import isEmpty from "validator/lib/isEmpty";
+import equals from "validator/lib/equals";
+import { showErrorMsg, showSuccessMsg } from "../../../helpers/message";
+import { showLoading } from "../../../helpers/loading";
+import { registrarUsuario } from "../../../api/auth";
+import "./Signup.css";
+import { isAuthenticated } from "../../../helpers/auth";
+import { toast } from "react-toastify";
+
+toast.configure();
 
 const Signup = () => {
   let history = useHistory();
 
   useEffect(() => {
     if (isAuthenticated() && isAuthenticated().rol === 1) {
-      history.push('/admin/dashboard');
+      history.push("/admin/dashboard");
     } else if (isAuthenticated() && isAuthenticated().rol === 0) {
-      history.push('/user/cita');
+      history.push("/user/cita");
     }
   }, [history]);
 
+  const notify = (estado, mensaje) => {
+    if (estado === "SUCCESS") {
+      toast.success(mensaje, {
+        autoClose: 10000,
+        toastId: "success",
+        className: "toast-margin",
+      });
+    } else if (estado === "ERROR") {
+      toast.error(mensaje, {
+        autoClose: 10000,
+        toastId: "error",
+        className: "toast-margin",
+      });
+    }
+  };
+
   // creamos el estado del componente
   const [formData, setFormData] = useState({
-    nombreCompleto: '',
+    nombreCompleto: "",
     fechaNacimiento: null,
-    DNI: '',
-    password: '',
-    numDeTelefono: '',
-    email: '',
-    obraSocial: '',
-    password2: '',
+    DNI: "",
+    password: "",
+    numDeTelefono: "",
+    email: "",
+    obraSocial: "",
+    password2: "",
     successMsg: false,
     errorMsg: false,
     loading: false,
@@ -54,7 +73,7 @@ const Signup = () => {
   } = formData;
 
   //momentjs
-  let stringFechaNacimiento = Moment(fechaNacimiento).format('yyyy-MM-DD');
+  let stringFechaNacimiento = Moment(fechaNacimiento).format("yyyy-MM-DD");
 
   // Event Handlers
   const handleChange = (evt) => {
@@ -62,8 +81,8 @@ const Signup = () => {
     setFormData({
       ...formData,
       [evt.target.name]: evt.target.value,
-      successMsg: '',
-      errorMsg: '',
+      successMsg: "",
+      errorMsg: "",
     });
   };
 
@@ -76,25 +95,22 @@ const Signup = () => {
       isEmpty(email) ||
       isEmpty(password) ||
       isEmpty(password2) ||
-      equals(stringFechaNacimiento, 'Invalid date') ||
+      equals(stringFechaNacimiento, "Invalid date") ||
       isEmpty(DNI) ||
       isEmpty(numDeTelefono) ||
       isEmpty(obraSocial)
     ) {
-      setFormData({
-        ...formData,
-        errorMsg: 'Todos los campos son requeridos.',
-      });
+      notify("ERROR", "¡Todos los campos son requeridos!");
     } else if (!isEmail(email)) {
-      setFormData({
-        ...formData,
-        errorMsg: 'Email invalido.',
-      });
+      notify("ERROR", "¡Email Invalido!");
     } else if (!equals(password, password2)) {
-      setFormData({
-        ...formData,
-        errorMsg: 'Las contraseñas no coinciden.',
-      });
+      notify("ERROR", "¡Las contraseñas no coinciden!");
+    } else if (
+      /[qwertyuiopasdfghjklñzxcvbnmQWERTYUIOPASDFGHJKLÑZXCVBNM!@#$%^&*(),.?":{}|<>]/i.test(
+        DNI
+      )
+    ) {
+      notify("ERROR", "¡El D.N.I posee caracteres!");
     } else {
       // preparacion de estados a mandar al backend
       const {
@@ -125,33 +141,30 @@ const Signup = () => {
       // http method request from api/auth.js
       registrarUsuario(data)
         .then((response) => {
-          console.log('Axios signup success: ', response);
+          //console.log("Axios signup success: ", response);
           setFormData({
-            nombreCompleto: '',
-            fechaNacimiento: '',
-            DNI: '',
-            password: '',
-            numDeTelefono: '',
-            email: '',
-            obraSocial: '',
-            password2: '',
+            nombreCompleto: "",
+            fechaNacimiento: "",
+            DNI: "",
+            password: "",
+            numDeTelefono: "",
+            email: "",
+            obraSocial: "",
+            password2: "",
             loading: false,
             successMsg: response.successMessage, //successMessage es un mensaje que viene desde el backend
           });
 
-          setTimeout(() => {
-            setFormData({
-              successMsg: null, //successMessage es un mensaje que viene desde el backend
-            });
-          }, 4000);
+          notify("SUCCESS", "¡Usuario Registrado exitosamente!");
         })
         .catch((err) => {
-          console.log('Axios signup error: ', err);
+          console.log("Axios signup error: ", err);
           setFormData({
             ...formData,
             loading: false,
             errorMsg: err.msg,
           });
+          notify("ERROR", "¡Hubo un error al registrar el usuario!");
         });
     }
   };
@@ -227,7 +240,7 @@ const Signup = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend ">
           <span className="input-group-text">
-            <i class="fas fa-birthday-cake fa-lg "></i>
+            <i className="fas fa-birthday-cake fa-lg "></i>
           </span>
         </div>
         <DatePicker
@@ -251,7 +264,7 @@ const Signup = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-id-card"></i>
+            <i className="fas fa-id-card"></i>
           </span>
         </div>
         <input
@@ -269,7 +282,7 @@ const Signup = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-phone-alt"></i>
+            <i className="fas fa-phone-alt"></i>
           </span>
         </div>
         <input
@@ -286,7 +299,7 @@ const Signup = () => {
       <div className="form-group input-group">
         <div className="input-group-prepend">
           <span className="input-group-text">
-            <i class="fas fa-star-of-life"></i>
+            <i className="fas fa-star-of-life"></i>
           </span>
         </div>
         <input
@@ -307,7 +320,7 @@ const Signup = () => {
       </div>
       {/* already have account */}
       <p className="text-center text-black">
-        Ya tenes una cuenta?{' '}
+        Ya tenes una cuenta?{" "}
         <Link to="/signin" className="bg-dark p-1 rounded">
           Iniciar sesión
         </Link>
@@ -320,8 +333,8 @@ const Signup = () => {
     <div className="signup-container container-fluid">
       <div className="row px-3 vh-100">
         <div className="col-md-5 mx-auto align-self-center">
-          {successMsg && showSuccessMsg(successMsg)}
-          {errorMsg && showErrorMsg(errorMsg)}
+          {/* {successMsg && showSuccessMsg(successMsg)}
+          {errorMsg && showErrorMsg(errorMsg)} */}
           {showSignupForm()}
           {/* {JSON.stringify(formData)} */}
           {/* {JSON.stringify(formData.fechaNacimiento)}
